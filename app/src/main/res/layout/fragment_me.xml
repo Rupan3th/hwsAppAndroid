@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.me.MeFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/image_me_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:id="@+id/text_me_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="24dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:rotationY="180"
+            android:src="@drawable/back" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="4dp">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/my_order"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_check_all"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/check_all"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/forward"
+                    app:iconGravity="end"
+                    app:iconSize="14dp"
+                    app:iconTint="@color/text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:paddingRight="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonWaitPay"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/wait_pay"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/wait_pay"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonWaitSend"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/wait_send"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/wait_send"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonWaitGet"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/wait_get"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/wait_get"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonCompleted"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/completed"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/completed"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/my_service"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonFavorite"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/my_favorite"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/favorite"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAfterSale"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/after_sale"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/after_sale"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAddressManagement"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/address_management"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/address"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonContact"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/contact_customer"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/contact_customer"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonEnterpriseBuy"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/enterprise_buy"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/enterprise_buy"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonBranch"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/branch"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/branch"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonCreditCardManage"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/credit_card_management"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/credit_card"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonCustomerService"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:letterSpacing="0"
+                    android:text="@string/customer_service"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:icon="@drawable/customer_service"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:iconTint="@color/text" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_logout"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginRight="32dp"
+        android:layout_weight="0"
+        android:clickable="false"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:letterSpacing="0"
+        android:minWidth="64dp"
+        android:text="@string/logout"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        android:textColor="@color/white"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:backgroundTint="@color/red"
+        app:cornerRadius="8dp" />
+</LinearLayout>

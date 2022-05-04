@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">华物商</string>
+    <string name="title_home">首页</string>
+    <string name="title_classification">分类</string>
+    <string name="title_lookout">望街</string>
+    <string name="title_shopping_cart">购物车</string>
+    <string name="title_me">我的</string>
+    <!-- Strings used for search -->
+    <string name="search_history">搜索历史</string>
+    <string name="clear_history">清除历史</string>
+    <string name="no_matching_items_found">没有找到匹配的商品</string>
+
+    <string name="home_top_description">优选国内好物</string>
+    <string name="message">消息</string>
+    <string name="search">搜索</string>
+    <string name="goods">产品</string>
+    <string name="search_goods">搜索产品</string>
+    <string name="all_goods">全部产品</string>
+    <string name="preferred_goods">优选商品</string>
+    <string name="error_message">网络错误。 请再试一次。</string>
+    <string name="error_db">数据库错误。</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <!-- Strings used for my order -->
+    <string name="all">全部</string>
+    <string name="cancel">取消</string>
+    <string name="my_order">我的订单</string>
+    <string name="check_all">查看全部</string>
+    <string name="wait_pay">待付款</string>
+    <string name="wait_send">待发货</string>
+    <string name="wait_get">待收货</string>
+    <string name="completed">已完成</string>
+    <string name="my_service">我的服务</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="after_sale">售后/退货</string>
+    <string name="address_management">地址管理</string>
+    <string name="contact_customer">华物商客服</string>
+    <string name="enterprise_buy">企业求购</string>
+    <string name="branch">华物商分期</string>
+    <string name="credit_card_management">信用卡办理</string>
+    <string name="customer_service">便民服务</string>
+    <string name="logout">退出登录</string>
+    <string name="not_implemented">亲，功能暂未开放，尽请期待</string>
+    <string name="cd_arrow_icon">Arrow icon</string>
+    <string name="cd_avatar_icon">Avatar icon</string>
+</resources>
+
