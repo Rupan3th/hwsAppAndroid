@@ -149,10 +149,14 @@ public class SectionRecyclerViewSwipeAdapter extends RecyclerView.Adapter<Recycl
                         sectionViewHolder.selectBtn.setChecked(false);
                         sectionViewHolder.selectBtn.setSelected(false);
                         sectionModelArrayList.get(itemIndex).setSelectedState(false);
+                        adapter.allSelect = false;
+                        adapter.notifyDataSetChanged();
                     } else {
                         sectionViewHolder.selectBtn.setChecked(true);
                         sectionViewHolder.selectBtn.setSelected(true);
                         sectionModelArrayList.get(itemIndex).setSelectedState(true);
+                        adapter.allSelect = true;
+                        adapter.notifyDataSetChanged();
                     }
                 }
             });

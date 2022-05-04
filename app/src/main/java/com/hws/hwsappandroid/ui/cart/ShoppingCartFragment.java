@@ -36,7 +36,6 @@ public class ShoppingCartFragment extends Fragment {
     private RecyclerView recyclerView;
     TextView toolbar;
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "USBCamera/";
-    SwipeController swipeController = null;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,14 +64,14 @@ public class ShoppingCartFragment extends Fragment {
     private void populateRecyclerView() {
         ArrayList<SwipeSectionModel> sectionModelArrayList = new ArrayList<>();
         //for loop for sections
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 3; i++) {
             ArrayList<SwipeSectionItemModel> itemArrayList = new ArrayList<>();
             //for loop for items
-            for (int j = 1; j <= 3; j++) {
+            for (int j = 1; j <= i; j++) {
                 File dir_image = new File(path + "images");
                 String image_name = path + "images/" + dir_image.listFiles()[1].getName();
                 Bitmap img = BitmapFactory.decodeFile(image_name);
-                SwipeSectionItemModel SwipeSectionItem = new SwipeSectionItemModel(true, img,"Item " + j, "冬季/19寸", "300", 3 );
+                SwipeSectionItemModel SwipeSectionItem = new SwipeSectionItemModel(false, img,"Item " + j, "冬季/19寸", "300", 3 );
                 itemArrayList.add(SwipeSectionItem);
             }
 
@@ -95,21 +94,6 @@ public class ShoppingCartFragment extends Fragment {
             }
         });
 
-        /////  swipe menu
-//        swipeController = new SwipeController(new SwipeControllerActions() {
-//            @Override
-//            public void onRightClicked(int position) {
-//            }
-//        });
-//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-//        itemTouchhelper.attachToRecyclerView(recyclerView);
-//        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-//            @Override
-//            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-//                swipeController.onDraw(c);
-//            }
-//        });
-        ////////////
     }
 
 //    @Override

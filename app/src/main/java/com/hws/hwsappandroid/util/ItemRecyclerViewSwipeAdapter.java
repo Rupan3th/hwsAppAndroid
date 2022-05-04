@@ -44,11 +44,13 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
     public ArrayList<SwipeSectionItemModel> arrayList;
     public String sectionLabel;
     public int Amount;
+    public boolean allSelect;
 
     public ItemRecyclerViewSwipeAdapter(Context context, ArrayList<SwipeSectionItemModel> arrayList, String sectionLabel) {
         this.context = context;
         this.arrayList = arrayList;
         this.sectionLabel = sectionLabel;
+        this.allSelect = false;
     }
 
     @Override
@@ -68,8 +70,13 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
         String itemPrice = arrayList.get(position).getPrice();
         int itemAmount = arrayList.get(position).getAmount();
 
-        holder.itemRadioBtn.setChecked(itemSelected);
-        holder.itemRadioBtn.setSelected(itemSelected);
+        if(allSelect){
+            holder.itemRadioBtn.setChecked(true);
+            holder.itemRadioBtn.setSelected(true);
+        }else {
+            holder.itemRadioBtn.setChecked(false);
+            holder.itemRadioBtn.setSelected(false);
+        }
         holder.itemImage.setImageBitmap(itemImage);
         holder.itemLabel.setText(itemLabel);
         holder.itemDetail.setText(itemDetail);
