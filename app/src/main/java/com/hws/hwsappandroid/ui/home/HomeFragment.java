@@ -171,15 +171,14 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 
     @Override
     public void onClick(View view, int position) {
-//        Intent detailImage = new Intent(getActivity(), ProductDetailActivity.class);
-
+        Intent detailImage = new Intent(getActivity(), ProductDetailActivity.class);
 //        String imageName = courseModelArrayList.get(position).getCourse_name();
 //        String productInfo = courseModelArrayList.get(position).getProductInfo();
 //        String price = courseModelArrayList.get(position).getPrice();
 
 //        detailImage.putExtra("imageName", imageName);
 //
-//        startActivity(detailImage);
+        startActivity(detailImage);
 
     }
 

@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<Good> models;
+    public ArrayList<Good> models;
     Context context;
     boolean stateHeader;
     private ItemClickListener clickListener;

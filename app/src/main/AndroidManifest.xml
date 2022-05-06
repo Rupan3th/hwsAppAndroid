@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HwsAppAndroid">
         <activity
+            android:name=".ui.cart.ShoppingCartAssist"
+            android:exported="false" />
+        <activity
             android:name=".MyOrderActivity"
             android:exported="false"
             android:label="@string/my_order"

@@ -21,13 +21,12 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
 
     class SectionViewHolder extends RecyclerView.ViewHolder {
-        private TextView sectionLabel, showAllButton;
+        private TextView sectionLabel;
         private RecyclerView itemRecyclerView;
 
         public SectionViewHolder(View itemView) {
             super(itemView);
             sectionLabel = (TextView) itemView.findViewById(R.id.section_label);
-            showAllButton = (TextView) itemView.findViewById(R.id.section_show_all_button);
             itemRecyclerView = (RecyclerView) itemView.findViewById(R.id.item_recycler_view);
         }
     }
@@ -74,14 +73,6 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         }
         ItemRecyclerViewAdapter adapter = new ItemRecyclerViewAdapter(context, sectionModel.getItemArrayList(), sectionModel.getSectionLabel());
         holder.itemRecyclerView.setAdapter(adapter);
-
-        //show toast on click of show all button
-        holder.showAllButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "You clicked on Show All of : " + sectionModel.getSectionLabel(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 

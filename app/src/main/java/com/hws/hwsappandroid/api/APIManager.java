@@ -13,8 +13,8 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 
 public class APIManager {
     public static final String Sever_URL = "http://hws.com";
-    private static final String URL = "http://192.168.2.22:8080/hwsAppService/v1";
-
+//    private static final String URL = "http://192.168.2.15:8080/hwsAppService/v1";
+    private static final String URL = "http://47.108.233.4:9083/hwsAppService/v1";
     public static final String IMAGE_URL = "http://app.automedicalbio.com/assets/img/";
 
     private static Context mContext;

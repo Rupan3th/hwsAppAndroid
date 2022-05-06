@@ -1,4 +1,4 @@
-package com.hws.hwsappandroid.ui.main;
+package com.hws.hwsappandroid.ui.me.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

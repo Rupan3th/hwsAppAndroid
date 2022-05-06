@@ -1,4 +1,4 @@
-package com.hws.hwsappandroid.ui.main;
+package com.hws.hwsappandroid.ui.me.main;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

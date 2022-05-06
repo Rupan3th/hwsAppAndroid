@@ -40,7 +40,7 @@ public class ShoppingCartFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        ShoppingCartModel shoppingCartViewModel = new ViewModelProvider(this).get(ShoppingCartModel.class);
+        ShoppingCartModel shoppingCartViewModel = new ViewModelProvider(this).get(ShoppingCartModel.class);
 
         binding = FragmentShoppingCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -55,7 +55,7 @@ public class ShoppingCartFragment extends Fragment {
 
     private void setUpRecyclerView() {
         recyclerView = binding.sectionedRecyclerSwipe;
-//        recyclerView = (RecyclerView) findViewById(R.id.sectioned_recycler_view);
+//        recyclerView = (RecyclerView) findViewById(R.id.sectioned_recycler_swipe);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);

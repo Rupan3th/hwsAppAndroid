@@ -1,4 +1,4 @@
-package com.hws.hwsappandroid.ui.main;
+package com.hws.hwsappandroid.ui.me.main;
 
 import android.content.Context;
 

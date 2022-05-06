@@ -103,11 +103,11 @@ public class PagerFragment extends Fragment {
             ArrayList<String> itemArrayList = new ArrayList<>();
             //for loop for items
             for (int j = 1; j <= 10; j++) {
-                itemArrayList.add("Item " + j);
+                itemArrayList.add("三级 " + j);
             }
 
             //add the section and items to array list
-            sectionModelArrayList.add(new SectionModel("Section " + i, itemArrayList));
+            sectionModelArrayList.add(new SectionModel("衣服种类 " + i, itemArrayList));
         }
 
         SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter(getContext(), recyclerViewType, sectionModelArrayList);
