@@ -1,4 +1,4 @@
-package com.hws.hwsappandroid.ui.lookout;
+package com.hws.hwsappandroid.ui;
 
 import android.os.Handler;
 import android.util.Log;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class LookoutViewModel extends ViewModel {
+public class ProductDetailModel extends ViewModel {
     private final MutableLiveData<ArrayList<Banner>> mBanners = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Good>> mGoods = new MutableLiveData<>();
     private boolean isLoading = false;

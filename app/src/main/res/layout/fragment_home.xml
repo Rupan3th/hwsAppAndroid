@@ -89,7 +89,18 @@
                         android:text="@string/home_top_description"
                         android:textColor="#9ad14b"
                         android:textSize="14sp" />
-
+                    <Button
+                        android:id="@+id/lang_selectBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:background="#00FFFFFF"
+                        android:drawableTop="@drawable/lang_card_28"
+                        android:minWidth="44dip"
+                        android:paddingTop="2dp"
+                        android:text="@string/language"
+                        android:textAllCaps="false"
+                        android:textColor="#7f7f7f" />
 
                     <Button
                         android:id="@+id/button"
@@ -98,7 +109,7 @@
                         android:layout_weight="0"
                         android:background="#00FFFFFF"
                         android:drawableTop="@drawable/bell"
-                        android:minWidth="48dip"
+                        android:minWidth="44dip"
                         android:text="@string/message"
                         android:textColor="#7f7f7f" />
 
@@ -238,7 +249,18 @@
                             app:backgroundTint="#d9001b"
                             app:cornerRadius="36dp" />
                     </LinearLayout>
-
+                    <Button
+                        android:id="@+id/lang_selectBtn_hidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:background="#00FFFFFF"
+                        android:drawableTop="@drawable/lang_card_28"
+                        android:minWidth="44dip"
+                        android:paddingTop="2dp"
+                        android:text="@string/language"
+                        android:textAllCaps="false"
+                        android:textColor="#7f7f7f" />
                     <Button
                         android:id="@+id/button_search_cancel"
                         android:layout_width="wrap_content"
@@ -246,7 +268,7 @@
                         android:layout_weight="0"
                         android:background="#00FFFFFF"
                         android:drawableTop="@drawable/bell"
-                        android:minWidth="48dip"
+                        android:minWidth="44dip"
                         android:text="@string/message"
                         android:textColor="#7f7f7f" />
                 </LinearLayout>

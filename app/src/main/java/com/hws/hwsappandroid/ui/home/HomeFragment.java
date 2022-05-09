@@ -2,13 +2,12 @@ package com.hws.hwsappandroid.ui.home;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,20 +17,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.hws.hwsappandroid.ProductDetailActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hws.hwsappandroid.databinding.FragmentHomeBinding;
+import com.hws.hwsappandroid.model.Good;
+import com.hws.hwsappandroid.ui.ProductDetailActivity;
 import com.hws.hwsappandroid.R;
-import com.hws.hwsappandroid.SearchActivity;
+import com.hws.hwsappandroid.ui.SearchActivity;
 import com.hws.hwsappandroid.components.carouselview.CarouselView;
 import com.hws.hwsappandroid.components.carouselview.ViewListener;
-import com.hws.hwsappandroid.databinding.FragmentHomeBinding;
-import com.hws.hwsappandroid.model.CourseModel;
+import com.hws.hwsappandroid.ui.classification.ClassificationFragment;
 import com.hws.hwsappandroid.util.ItemClickListener;
+import com.hws.hwsappandroid.util.RecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -44,8 +47,8 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     CarouselView carouselView;
     int lastAppbarOffset = 0;
     RecyclerView recyclerView;
-    private HomeRecyclerViewAdapter mAdapter;
-    private String path = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "USBCamera/";
+    private RecyclerViewAdapter mAdapter;
+//    private String path = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "USBCamera/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +94,14 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     Picasso.get().load(banners.get(position).bannerPic).fit().centerCrop()
                             .into(imageView);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent pd = new Intent(getActivity(), ProductDetailActivity.class);
+                            String gotoContent = banners.get(position).gotoContent;
+                            startActivity(pd);
+                        }
+                    });
                     return imageView;
                 }
             });
@@ -140,7 +151,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         recyclerView = binding.recyclerView;
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mAdapter = new HomeRecyclerViewAdapter(getContext(), true);
+        mAdapter = new RecyclerViewAdapter(getContext(), true);
         recyclerView.setAdapter(mAdapter);
         model.getGoods().observe(getViewLifecycleOwner(), goods -> {
             mAdapter.setData(goods);
@@ -171,14 +182,17 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 
     @Override
     public void onClick(View view, int position) {
-        Intent detailImage = new Intent(getActivity(), ProductDetailActivity.class);
+        Intent detailproduct = new Intent(getActivity(), ProductDetailActivity.class);
+        Good productInfo = mAdapter.getGoodInfo(position);
+        String good_name = productInfo.goodsName;
+        String good_sn = productInfo.goodsSn;
 //        String imageName = courseModelArrayList.get(position).getCourse_name();
 //        String productInfo = courseModelArrayList.get(position).getProductInfo();
 //        String price = courseModelArrayList.get(position).getPrice();
 
 //        detailImage.putExtra("imageName", imageName);
 //
-        startActivity(detailImage);
+        startActivity(detailproduct);
 
     }
 
@@ -207,11 +221,45 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                 if (i==1 && j==4) {
                     // last category - all
                     image.setImageResource(R.drawable.view_all);
+                    image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //goto classification
+                            Bundle bundle = new Bundle();
+                            bundle.putString("categoryName", "all");
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            ClassificationFragment CF = new ClassificationFragment();
+                            CF.setArguments(bundle);
+                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, CF).commit();
+
+                            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
+//                            bottomNavigationView.setSelectedItemId(R.id.navigation_classification);
+                            MenuItem item = bottomNavigationView.getMenu().findItem(R.id.navigation_classification);
+                            item.setChecked(true);
+                        }
+                    });
                 } else {
                     HomeCategory category = categories.get(i*5+j);
                     Picasso.get().load(category.img).into(image);
                     TextView textView = layout.findViewById(R.id.text_home_category);
                     textView.setText(category.name);
+                    image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String categoryName = category.name;
+                            //goto classification
+                            Bundle bundle = new Bundle();
+                            bundle.putString("categoryName", categoryName);
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            ClassificationFragment CF = new ClassificationFragment();
+                            CF.setArguments(bundle);
+                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, CF).commit();
+
+                            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
+                            MenuItem item = bottomNavigationView.getMenu().findItem(R.id.navigation_classification);
+                            item.setChecked(true);
+                        }
+                    });
                 }
                 row.addView(layout);
 //                ViewGroup.LayoutParams params = layout.getLayoutParams();

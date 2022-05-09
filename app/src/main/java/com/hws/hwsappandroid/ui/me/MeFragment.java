@@ -10,12 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hws.hwsappandroid.MyOrderActivity;
+import com.hws.hwsappandroid.ui.me.main.MyOrderActivity;
 import com.hws.hwsappandroid.R;
-import com.hws.hwsappandroid.SearchActivity;
 import com.hws.hwsappandroid.databinding.FragmentMeBinding;
 
 public class MeFragment extends Fragment {

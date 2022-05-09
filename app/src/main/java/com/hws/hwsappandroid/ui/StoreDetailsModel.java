@@ -1,4 +1,4 @@
-package com.hws.hwsappandroid.ui.lookout;
+package com.hws.hwsappandroid.ui;
 
 import android.os.Handler;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 
 import com.hws.hwsappandroid.api.APIManager;
 import com.hws.hwsappandroid.model.Good;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class LookoutViewModel extends ViewModel {
+public class StoreDetailsModel extends ViewModel {
     private final MutableLiveData<ArrayList<Banner>> mBanners = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Good>> mGoods = new MutableLiveData<>();
     private boolean isLoading = false;
@@ -200,13 +199,4 @@ public class LookoutViewModel extends ViewModel {
             }
         });
     }
-}
-
-class Banner {
-    public String bannerPic;
-    public int enableStatus;
-    public String gotoContent;
-    public int gotoType;
-    public String pkId;
-    public String sort;
 }

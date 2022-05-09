@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -18,8 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hws.hwsappandroid.R;
-import com.hws.hwsappandroid.SearchActivity;
 import com.hws.hwsappandroid.databinding.FragmentClassificationBinding;
+import com.hws.hwsappandroid.ui.SearchActivity;
 
 public class ClassificationFragment extends Fragment {
 
@@ -43,8 +41,16 @@ public class ClassificationFragment extends Fragment {
 
 //        final TextView textView = binding.txtClassification;
 //        classificationViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        String category_name = "";
+        if (getArguments() != null)
+        {
+            category_name = getArguments().getString("categoryName");
+        }
+
         search_bar = view.findViewById(R.id.search_bar);
         search_bar_txt = view.findViewById(R.id.editTextTextPersonName);
+        search_bar_txt.setText(category_name);
         search_bar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

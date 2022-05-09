@@ -19,21 +19,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HwsAppAndroid">
         <activity
+            android:name=".SelectLangActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.StoreDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.cart.ShoppingCartAssist"
             android:exported="false" />
         <activity
-            android:name=".MyOrderActivity"
+            android:name=".ui.me.main.MyOrderActivity"
             android:exported="false"
             android:label="@string/my_order"
             android:theme="@style/Theme.HwsAppAndroid.NoActionBar" />
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".ui.ProductDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ImageDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".ui.SearchActivity"
             android:exported="false"
             android:label="@string/title_activity_search"
             android:theme="@style/Theme.HwsAppAndroid.NoActionBar" />

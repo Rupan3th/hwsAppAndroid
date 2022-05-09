@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hws.hwsappandroid.R;
 import com.hws.hwsappandroid.model.CourseModel;
+import com.hws.hwsappandroid.model.Good;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<CourseModel> courseModels;
+    public ArrayList<Good> models;
     Context context;
     boolean stateHeader;
     private ItemClickListener clickListener;
@@ -28,15 +30,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int TYPE_FOOTER = 2;
 
     // Constructor for initialization
-    public RecyclerViewAdapter(Context context, ArrayList<CourseModel> courseModelArrayList, boolean stateHeader) {
+    public RecyclerViewAdapter(Context context, boolean stateHeader) {
         this.context = context;
-        this.courseModels = courseModelArrayList;
+        this.models = new ArrayList<>();
         this.stateHeader = stateHeader;
     }
+
+    public void setData(ArrayList<Good> list) {
+        models = list;
+        notifyDataSetChanged();
+    }
+
+    public Good getGoodInfo(int position){
+        return models.get(position);
+    }
+
     @Override
     public int getItemViewType(int position) {
         if(stateHeader){
-            if (position == courseModels.size())
+            if (position == models.size())
                 return TYPE_FOOTER;
             else
                 return TYPE_ITEM;
@@ -44,7 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         else{
             if (position == 0)
                 return TYPE_HEADER;
-            else if (position == courseModels.size() + 1)
+            else if (position == models.size() + 1)
                 return TYPE_FOOTER;
             else
                 return TYPE_ITEM;
@@ -55,10 +67,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount() {
         // Returns number of items currently available in Adapter
         if(stateHeader){
-            return courseModels.size() + 1;
+            return models.size() + 1;
         }
         else{
-            return courseModels.size() + 2;
+            return models.size() + 2;
         }
     }
 
@@ -111,9 +123,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             } else {
                 ViewHolder viewHolder = (ViewHolder) holder;
-                viewHolder.images.setImageBitmap(courseModels.get(position).getImgid());
-                viewHolder.product_info.setText(courseModels.get(position).getProductInfo());
-                viewHolder.price.setText(courseModels.get(position).getPrice());
+                Picasso.get().load(models.get(position).goodsPic).into(viewHolder.images);
+                viewHolder.product_info.setText(models.get(position).goodsName);
+                viewHolder.price.setText("￥"+models.get(position).price);
             }
         }
         else{
@@ -123,9 +135,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             } else {
                 ViewHolder viewHolder = (ViewHolder) holder;
-                viewHolder.images.setImageBitmap(courseModels.get(position-1).getImgid());
-                viewHolder.product_info.setText(courseModels.get(position-1).getProductInfo());
-                viewHolder.price.setText(courseModels.get(position-1).getPrice());
+                Picasso.get().load(models.get(position-1).goodsPic).into(viewHolder.images);
+                viewHolder.product_info.setText(models.get(position-1).goodsName);
+                viewHolder.price.setText("￥"+models.get(position-1).price);
             }
         }
     }
