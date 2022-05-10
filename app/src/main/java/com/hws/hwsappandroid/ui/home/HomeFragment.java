@@ -4,18 +4,28 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.GravityCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +35,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.hws.hwsappandroid.databinding.FragmentHomeBinding;
 import com.hws.hwsappandroid.model.Good;
 import com.hws.hwsappandroid.ui.ProductDetailActivity;
@@ -40,7 +51,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements ItemClickListener {
+public class HomeFragment extends Fragment implements ItemClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentHomeBinding binding;
     AppBarLayout appBarLayout;
@@ -49,6 +60,8 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     RecyclerView recyclerView;
     private RecyclerViewAdapter mAdapter;
 //    private String path = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "USBCamera/";
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +93,22 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                 lastAppbarOffset = offset;
             }
         });
+
+        drawerLayout = getActivity().findViewById(R.id.drawer_layout); // binding.myDrawerLayout;
+        NavigationView navigationView = getActivity().findViewById(R.id.select_lang_navigation); // binding.selectLangNavigation;
+        navigationView.setNavigationItemSelectedListener(this);
+        Button lang_selectBtn = binding.langSelectBtn;
+        lang_selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Slide slide = new Slide();
+//                slide.setSlideEdge(Gravity.END);
+//                TransitionManager.beginDelayedTransition(home_fragment, slide);
+//                selectLangNav.setVisibility(View.VISIBLE);
+                drawerLayout.openDrawer(GravityCompat.END);
+            }
+        });
+
 
         // carousel
         CarouselView carouselView = binding.carouselView;
@@ -267,6 +296,23 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 //                layout.setLayoutParams(params);
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.lang_chinese:
+                Toast.makeText(getContext(),R.string.chinese_simple,Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.lang_korean:
+                Toast.makeText(getContext(),R.string.korean,Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.END);
+        return false;
     }
 
     @Override

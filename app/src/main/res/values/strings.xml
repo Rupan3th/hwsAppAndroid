@@ -12,10 +12,12 @@
     <string name="no_matching_items_found">没有找到匹配的商品</string>
     <string name="please_select_lang">请选择你的语言</string>
     <string name="please_select_lang_en">（Please choose your Language）</string>
+    <string name="select_lang">选择语言</string>
     <string name="language">language</string>
     <string name="chinese_simple">简体中文</string>
     <string name="korean">조선</string>
-
+    <string name="koreans">조선어</string>
+    选择语言
     <string name="home_top_description">优选国内好物</string>
     <string name="message">消息</string>
     <string name="search">搜索</string>

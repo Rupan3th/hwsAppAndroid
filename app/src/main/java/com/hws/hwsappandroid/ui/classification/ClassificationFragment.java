@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.hws.hwsappandroid.R;
 import com.hws.hwsappandroid.databinding.FragmentClassificationBinding;
+import com.hws.hwsappandroid.ui.ChooseCategoryActivity;
 import com.hws.hwsappandroid.ui.SearchActivity;
 
 public class ClassificationFragment extends Fragment {

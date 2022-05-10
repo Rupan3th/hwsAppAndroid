@@ -34,8 +34,8 @@ public class ShoppingCartAssist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_shopping_cart);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         TextView toolbar_shoppingCart = findViewById(R.id.toolbar_shoppingCart);
         toolbar_shoppingCart.setVisibility(View.VISIBLE);

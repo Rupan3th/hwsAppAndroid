@@ -51,8 +51,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Intent intent = getIntent();
         imageName = intent.getStringExtra("imageName");
@@ -172,7 +172,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             FlowLayout.MarginLayoutParams margin_params = new FlowLayout.MarginLayoutParams(
                     FlowLayout.MarginLayoutParams.WRAP_CONTENT, FlowLayout.MarginLayoutParams.WRAP_CONTENT);
-            margin_params.setMargins(50,50,50,50);
             tv.setLayoutParams(margin_params);
 
             layout.addView(tv);
