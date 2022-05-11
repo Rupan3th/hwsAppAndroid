@@ -42,7 +42,7 @@ public class StoreDetailsActivity extends AppCompatActivity implements ItemClick
         recyclerView = findViewById(R.id.recyclerView);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mAdapter = new RecyclerViewAdapter(this, true);
+        mAdapter = new RecyclerViewAdapter(this, true, 0);
         recyclerView.setAdapter(mAdapter);
 
         model.loadData();

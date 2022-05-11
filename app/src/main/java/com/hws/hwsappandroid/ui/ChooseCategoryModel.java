@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ProductDetailModel extends ViewModel {
+public class ChooseCategoryModel extends ViewModel {
     private final MutableLiveData<ArrayList<Banner>> mBanners = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Good>> mGoods = new MutableLiveData<>();
     private boolean isLoading = false;
@@ -53,7 +53,7 @@ public class ProductDetailModel extends ViewModel {
 
                                 JSONArray bannersJson = obj.getJSONArray("banners");
                                 ArrayList<Banner> bannerArr = new ArrayList<>();
-                                for (int i=0; i<bannersJson.length(); i++) {
+                                for (int i = 0; i < bannersJson.length(); i++) {
                                     JSONObject bJson = bannersJson.getJSONObject(i);
                                     Banner banner = new Banner();
                                     banner.bannerPic = bJson.optString("bannerPic");
@@ -68,7 +68,7 @@ public class ProductDetailModel extends ViewModel {
 
                                 JSONArray goodsJson = obj.getJSONObject("goods").getJSONArray("list");
                                 ArrayList<Good> goodArr = new ArrayList<>();
-                                for (int i=0; i<goodsJson.length(); i++) {
+                                for (int i = 0; i < goodsJson.length(); i++) {
                                     JSONObject json = goodsJson.getJSONObject(i);
                                     Good good = new Good();
                                     good.pkId = json.optString("pkId", "");
@@ -103,7 +103,7 @@ public class ProductDetailModel extends ViewModel {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        Log.d("Home request", ""+statusCode);
+                        Log.d("Home request", "" + statusCode);
 //                        progressDialog.dismiss();
 //                        Toast.makeText(mContext, res.getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                         isLoading = false;
@@ -133,7 +133,7 @@ public class ProductDetailModel extends ViewModel {
                 JSONObject jsonParams = new JSONObject();
                 ArrayList<Good> goodArr = mGoods.getValue();
                 if (goodArr.size() > 0) {
-                    Good aGood = goodArr.get(goodArr.size()-1);
+                    Good aGood = goodArr.get(goodArr.size() - 1);
 //                    params.add("pkId", aGood.pkId);
                     try {
                         jsonParams.put("pkId", aGood.pkId);
@@ -150,7 +150,7 @@ public class ProductDetailModel extends ViewModel {
                                 JSONObject obj = response.getJSONObject("data");
                                 JSONArray goodsJson = obj.getJSONArray("list");
                                 ArrayList<Good> goodArr = mGoods.getValue();
-                                for (int i=0; i<goodsJson.length(); i++) {
+                                for (int i = 0; i < goodsJson.length(); i++) {
                                     JSONObject json = goodsJson.getJSONObject(i);
                                     Good good = new Good();
                                     good.pkId = json.optString("pkId", "");
@@ -200,5 +200,15 @@ public class ProductDetailModel extends ViewModel {
             }
         });
     }
+
+}
+
+class Banner {
+    public String bannerPic;
+    public int enableStatus;
+    public String gotoContent;
+    public int gotoType;
+    public String pkId;
+    public String sort;
 }
 

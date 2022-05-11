@@ -15,14 +15,17 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.hws.hwsappandroid.R;
 import com.hws.hwsappandroid.model.CourseModel;
 import com.hws.hwsappandroid.model.Good;
+import com.hws.hwsappandroid.model.shippingAdr;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ArrayList<Good> models;
+//    public ArrayList<shippingAdr> shippingAdrModels;
     Context context;
     boolean stateHeader;
+    int itemLayoutMode;
     private ItemClickListener clickListener;
 
     private final int TYPE_HEADER = 0;
@@ -30,16 +33,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int TYPE_FOOTER = 2;
 
     // Constructor for initialization
-    public RecyclerViewAdapter(Context context, boolean stateHeader) {
+    public RecyclerViewAdapter(Context context, boolean stateHeader, int itemLayoutMode) {
         this.context = context;
         this.models = new ArrayList<>();
         this.stateHeader = stateHeader;
+        this.itemLayoutMode = itemLayoutMode;
     }
 
     public void setData(ArrayList<Good> list) {
         models = list;
         notifyDataSetChanged();
     }
+
+//    public void setDataAdr(ArrayList<shippingAdr> list) {
+//        shippingAdrModels = list;
+//        notifyDataSetChanged();
+//    }
 
     public Good getGoodInfo(int position){
         return models.get(position);
@@ -89,6 +98,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder = new FooterViewHolder(view);
             } else {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
+                if(itemLayoutMode == 1)
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item_mode1, parent, false);
+                else if (itemLayoutMode == 2)
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item_mode2, parent, false);
+                else if (itemLayoutMode == 3)
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item_mode3, parent, false);
+
                 viewHolder = new ViewHolder(view);
             }
         }
@@ -107,6 +123,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder = new FooterViewHolder(view);
             } else {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
+                if(itemLayoutMode == 1)
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item_mode1, parent, false);
+                else if (itemLayoutMode == 2)
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item_mode2, parent, false);
+                else if (itemLayoutMode == 3)
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item_mode3, parent, false);
                 viewHolder = new ViewHolder(view);
             }
         }

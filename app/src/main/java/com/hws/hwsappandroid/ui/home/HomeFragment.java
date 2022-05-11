@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment implements ItemClickListener, Navigat
         recyclerView = binding.recyclerView;
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mAdapter = new RecyclerViewAdapter(getContext(), true);
+        mAdapter = new RecyclerViewAdapter(getContext(), true, 0);
         recyclerView.setAdapter(mAdapter);
         model.getGoods().observe(getViewLifecycleOwner(), goods -> {
             mAdapter.setData(goods);

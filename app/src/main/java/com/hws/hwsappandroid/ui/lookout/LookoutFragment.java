@@ -47,7 +47,7 @@ public class LookoutFragment extends Fragment implements ItemClickListener {
         recyclerView = binding.recyclerView;
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mAdapter = new RecyclerViewAdapter(getContext(), false);
+        mAdapter = new RecyclerViewAdapter(getContext(), false, 0);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setClickListener(this);

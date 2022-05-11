@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HwsAppAndroid">
         <activity
+            android:name=".ui.ShippingAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.OrderDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ChooseCategoryActivity"
             android:exported="false" />
         <activity

@@ -1,5 +1,6 @@
 package com.hws.hwsappandroid.ui.cart;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,12 +16,16 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.hws.hwsappandroid.R;
 import com.hws.hwsappandroid.databinding.FragmentShoppingCartBinding;
 import com.hws.hwsappandroid.model.RecyclerViewType;
 import com.hws.hwsappandroid.model.SwipeSectionItemModel;
+import com.hws.hwsappandroid.ui.ChooseCategoryActivity;
+import com.hws.hwsappandroid.ui.OrderDetailsActivity;
+import com.hws.hwsappandroid.ui.SearchActivity;
 import com.hws.hwsappandroid.util.SectionRecyclerViewSwipeAdapter;
 import com.hws.hwsappandroid.model.SwipeSectionModel;
 import com.hws.hwsappandroid.util.SwipeController;
@@ -50,6 +55,15 @@ public class ShoppingCartFragment extends Fragment {
         setUpRecyclerView();
         populateRecyclerView();
 
+        Button toSettleBtn = binding.toSettleBtn;
+        toSettleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), OrderDetailsActivity.class);
+//                i.putExtra("searchWord", s);
+                startActivity(i);
+            }
+        });
         return root;
     }
 

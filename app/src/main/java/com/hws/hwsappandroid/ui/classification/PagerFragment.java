@@ -80,7 +80,7 @@ public class PagerFragment extends Fragment {
 //        tvTag.setText("第"+(pagerId+1)+"頁");
 //        tvInfo.setText(info);
 
-        getClassificationList();
+//        getClassificationList();
         ////
         setUpRecyclerView();
         populateRecyclerView();
