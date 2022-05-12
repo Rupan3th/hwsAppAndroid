@@ -6,20 +6,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.hws.hwsappandroid.model.Category;
+import com.hws.hwsappandroid.model.Good;
+
+import java.util.ArrayList;
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private String[] strings;
+    public ArrayList<Category> CategoryTree;
 
     /**建構子初始化*/
-    public ViewPagerAdapter(@NonNull FragmentManager fm, String[] strings) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
-        this.strings = strings;
+        this.CategoryTree = new ArrayList<>();
     }
 
     /**此功能在本範例中未使用*/
     /**若要做即時資料更新時便可以使用此方法*/
-    public void updateData(String[] strings){
-        this.strings = strings;
+    public void updateData(ArrayList<Category> list){
+        CategoryTree = list;
         notifyDataSetChanged();
     }
 
@@ -38,13 +43,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         PagerFragment pagerFragment = PagerFragment.newInstance(
-                strings[position],position);
+                CategoryTree.get(position).categoryName, CategoryTree.get(position), position);
 
         return pagerFragment;
     }
     /**決定要設置幾個Page*/
     @Override
     public int getCount() {
-        return strings.length;
+        return CategoryTree.size();
     }
 }

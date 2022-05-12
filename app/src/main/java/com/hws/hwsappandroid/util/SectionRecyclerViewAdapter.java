@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hws.hwsappandroid.R;
+import com.hws.hwsappandroid.model.Children_level_1;
 import com.hws.hwsappandroid.model.RecyclerViewType;
 import com.hws.hwsappandroid.model.SectionModel;
 
@@ -33,9 +34,9 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
     private Context context;
     private RecyclerViewType recyclerViewType;
-    private ArrayList<SectionModel> sectionModelArrayList;
+    private ArrayList<Children_level_1> sectionModelArrayList;
 
-    public SectionRecyclerViewAdapter(Context context, RecyclerViewType recyclerViewType, ArrayList<SectionModel> sectionModelArrayList) {
+    public SectionRecyclerViewAdapter(Context context, RecyclerViewType recyclerViewType, ArrayList<Children_level_1> sectionModelArrayList) {
         this.context = context;
         this.recyclerViewType = recyclerViewType;
         this.sectionModelArrayList = sectionModelArrayList;
@@ -49,8 +50,8 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
     @Override
     public void onBindViewHolder(SectionViewHolder holder, int position) {
-        final SectionModel sectionModel = sectionModelArrayList.get(position);
-        holder.sectionLabel.setText(sectionModel.getSectionLabel());
+        final Children_level_1 sectionModel = sectionModelArrayList.get(position);
+        holder.sectionLabel.setText(sectionModel.categoryName);
 
         //recycler view for items
         holder.itemRecyclerView.setHasFixedSize(true);
@@ -67,11 +68,11 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                 holder.itemRecyclerView.setLayoutManager(linearLayoutManager1);
                 break;
             case GRID:
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
                 holder.itemRecyclerView.setLayoutManager(gridLayoutManager);
                 break;
         }
-        ItemRecyclerViewAdapter adapter = new ItemRecyclerViewAdapter(context, sectionModel.getItemArrayList(), sectionModel.getSectionLabel());
+        ItemRecyclerViewAdapter adapter = new ItemRecyclerViewAdapter(context, sectionModel.childrenList, sectionModel.categoryName);
         holder.itemRecyclerView.setAdapter(adapter);
 
     }

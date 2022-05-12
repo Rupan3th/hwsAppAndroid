@@ -12,20 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hws.hwsappandroid.R;
+import com.hws.hwsappandroid.model.Category;
+import com.hws.hwsappandroid.model.Good;
+
+import java.util.ArrayList;
 
 public class TabsAdapter extends RecyclerView.Adapter<TabsAdapter.ViewHolder> {
         OnTabClick onTabClick;
-private String[] strings;
-private RecyclerView recyclerView;
-private int currentPage = 0;
+    public ArrayList<Category> CategoryTree;
+    private RecyclerView recyclerView;
+    private int currentPage = 0;
 
-/**建構子*/
-public TabsAdapter(String[] strings,RecyclerView recyclerView) {
-        this.strings = strings;
+    /**建構子*/
+    public TabsAdapter(RecyclerView recyclerView) {
+        this.CategoryTree = new ArrayList<>();
         this.recyclerView = recyclerView;
-        }
-/**提供一個接口給外部以綁定ViewPager的頁數及Tab顯示*/
-public void setCurrentPage(int position){
+    }
+
+    public void setData(ArrayList<Category> list) {
+        CategoryTree = list;
+        notifyDataSetChanged();
+    }
+    /**提供一個接口給外部以綁定ViewPager的頁數及Tab顯示*/
+    public void setCurrentPage(int position){
         if (currentPage >= 0){
         deSelect(currentPage);
         }
@@ -37,8 +46,8 @@ public void setCurrentPage(int position){
         /**保證RecyclerViewAdapter中的即時頁碼與被滑到的位置相同*/
         currentPage = position;
         }
-/**使其他沒被滑到會點選到的頁面Tab回復原本的顏色*/
-private void deSelect(int position){
+    /**使其他沒被滑到會點選到的頁面Tab回復原本的顏色*/
+    private void deSelect(int position){
         if (recyclerView.getLayoutManager().findViewByPosition(position)!= null){
         View targetView = recyclerView.getLayoutManager().findViewByPosition(position);
         TextView tvTab = targetView.findViewById(R.id.textView_TabNumber);
@@ -47,28 +56,28 @@ private void deSelect(int position){
         }
         currentPage = -1;
         }
-/**設置被選到時的UI變化*/
-private void setTextViewSelected(TextView tvTab, View divider){
+    /**設置被選到時的UI變化*/
+    private void setTextViewSelected(TextView tvTab, View divider){
         tvTab.setTextColor(Color.BLUE);
         tvTab.setTypeface(null, Typeface.BOLD);
         divider.setVisibility(View.VISIBLE);
         }
-/**設置被未被選到時的UI變化*/
-private void setTextViewUnSelected(TextView tvTab, View divider){
+    /**設置被未被選到時的UI變化*/
+    private void setTextViewUnSelected(TextView tvTab, View divider){
         tvTab.setTextColor(Color.BLACK);
         tvTab.setTypeface(null, Typeface.NORMAL);
         divider.setVisibility(View.INVISIBLE);
         }
 
-public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView tvTab;
-    View divider;
-    public ViewHolder(@NonNull View itemView) {
-        super(itemView);
-        tvTab = itemView.findViewById(R.id.textView_TabNumber);
-        divider = itemView.findViewById(R.id.divider);
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTab;
+        View divider;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTab = itemView.findViewById(R.id.textView_TabNumber);
+            divider = itemView.findViewById(R.id.divider);
+        }
     }
-}
 
     @NonNull
     @Override
@@ -79,7 +88,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        holder.tvTab.setText(strings[position]);
+        holder.tvTab.setText(CategoryTree.get(position).categoryName);
         if (position == currentPage) setTextViewSelected(holder.tvTab, holder.divider);
         else setTextViewUnSelected(holder.tvTab, holder.divider);
 
@@ -93,10 +102,10 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public int getItemCount() {
-        return strings.length;
+        return CategoryTree.size();
     }
 
-interface OnTabClick{
-    void onTabClick(int position);
-}
+    interface OnTabClick{
+        void onTabClick(int position);
+    }
 }
