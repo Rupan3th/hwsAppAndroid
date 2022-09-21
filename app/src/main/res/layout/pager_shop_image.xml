@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/view_finder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/after_sale"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:gi_min_scale="0.1"
+            app:gi_max_scale="10.0"
+            app:gi_strict="false"/>
+
+</LinearLayout>

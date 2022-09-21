@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bottom_sheet_top_round_white"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/select_received"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RadioButton
+                android:id="@+id/radio_not_received"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="21dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="@null"
+                android:layoutDirection="rtl"
+                android:textAlignment="textStart"
+                android:layout_gravity="start"
+                android:button="@drawable/radio_background"
+                android:textSize="14sp"
+                android:text="@string/not_received"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radio_received"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="21dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="@null"
+                android:layoutDirection="rtl"
+                android:textAlignment="textStart"
+                android:layout_gravity="start"
+                android:button="@drawable/radio_background"
+                android:textSize="14sp"
+                android:text="@string/received_goods"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/bottomCtr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/confirmBtn"
+                android:layout_width="185dp"
+                android:layout_height="76dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/button_shape4"
+                android:textColor="@color/white"
+                android:paddingBottom="6dp"
+                android:textSize="14sp"
+                android:text="完成" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
