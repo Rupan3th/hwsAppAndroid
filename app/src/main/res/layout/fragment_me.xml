@@ -1,382 +1,928 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.me.MeFragment">
+    tools:context=".ui.me.MeFragment"
+    android:background="@drawable/me_wall_bg"
+    android:id="@+id/meTab">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/me_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/me_bg" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/illustration_autumn"-->
+<!--            android:layout_width="178dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:scaleType="fitXY"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/me_bg"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            android:layout_marginEnd="9dp"-->
+<!--            android:src="@drawable/illustration_autum" />-->
+
+        <LinearLayout
+            android:id="@+id/curtain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/me_bg"
+            android:background="@color/windowBackground"
+            android:orientation="vertical"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/image_me_avatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:src="@drawable/profile" />
-
-        <TextView
-            android:id="@+id/text_me_name"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_profile_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="14dp"
+            android:elevation="0dp"
+            android:alpha="0">
+            <ImageView
+                android:id="@+id/image_me_small"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@mipmap/default_avatar" />
+        </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="24dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="16dp"
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:rotationY="180"
-            android:src="@drawable/back" />
+            android:text="@string/title_me"
+            android:gravity="center_horizontal"
+            android:textColor="#ff222222"
+            android:layout_marginTop="53dp"
+            android:layout_marginStart="32dp"
+            android:textSize="16sp"
+            android:alpha="0"/>
+
+        <ImageButton
+            android:id="@+id/setting_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/notify_service"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="6dp"
+            app:srcCompat="@mipmap/icon_setting" />
+        <RelativeLayout
+            android:id="@+id/notify_service"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <ImageButton
+                android:id="@+id/button_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/bell_note" />
+
+            <TextView
+                android:id="@+id/notify"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:paddingTop="0dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/notify_circle"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        app:cardCornerRadius="8dp">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        android:layout_marginTop="84dp"
+        android:layout_marginBottom="@dimen/bottom_navigation_height"
+        android:contentDescription='"Me Content"'>
 
         <LinearLayout
+            android:id="@+id/topLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/profile_area"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="4dp">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="24dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/image_profile_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="28dp"
+                    android:elevation="0dp">
+                    <ImageView
+                        android:id="@+id/image_me_avatar"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:src="@drawable/profile" />
+                </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/my_order"
-                    android:textSize="16sp" />
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/text_main"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/register"
+                    android:visibility="gone"/>
+                <LinearLayout
+                    android:id="@+id/myInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_check_all"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/check_all"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/forward"
-                    app:iconGravity="end"
-                    app:iconSize="14dp"
-                    app:iconTint="@color/text" />
+                    <TextView
+                        android:id="@+id/text_me_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:textColor="@color/text_main"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/phone_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#555555 "
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        android:textSize="11sp"
+                        android:text="什么也没留下~" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="4dp"
-                android:paddingRight="4dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonWaitPay"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
+                android:translationY="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp">
+                <com.hws.hwsappandroid.components.carouselview.CarouselView
+                    android:id="@+id/carouselView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/wait_pay"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/wait_pay"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
+                    app:pageColor="@color/windowBackground"
+                    app:radius="3dp"
+                    app:indicatorVisibility="gone"
+                    app:slideInterval="5000">
+                </com.hws.hwsappandroid.components.carouselview.CarouselView>
+            </androidx.cardview.widget.CardView>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonWaitSend"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginTop="9dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                android:outlineSpotShadowColor="@color/purple_200"
+                android:outlineAmbientShadowColor = "@color/purple_200">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="6dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/my_order"
+                            android:textColor="@color/text_hard"
+                            android:textStyle="bold"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_check_all"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:background="@android:color/transparent"
+                            android:letterSpacing="0"
+                            android:text="@string/check_all"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                            android:textColor="@color/text_soft"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            app:icon="@drawable/forward"
+                            app:iconGravity="end"
+                            app:iconSize="14dp"
+                            android:textSize="12sp"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="0dp"
+                            app:iconTint="@color/text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/buttonWaitPay"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:clickable="true"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="34dp"
+                                android:layout_height="wrap_content" >
+
+                                <ImageButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="fitCenter"
+                                    android:clickable="false"
+                                    app:srcCompat="@mipmap/order_pending_payment" />
+
+                                <TextView
+                                    android:id="@+id/notifyWaitPay"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/me_notify_badge"
+                                    android:clickable="false"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:visibility="invisible" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="待付款"
+                                android:textColor="#ff555555"
+                                android:clickable="false"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:id="@+id/buttonWaitSend"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:clickable="true"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="34dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="fitCenter"
+                                    android:clickable="false"
+                                    app:srcCompat="@mipmap/order_pending_delivered" />
+
+                                <TextView
+                                    android:id="@+id/notifyWaitSend"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/me_notify_badge"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:clickable="false"
+                                    android:visibility="invisible"/>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="待发货"
+                                android:clickable="false"
+                                android:textColor="#ff555555"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:id="@+id/buttonWaitGet"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:clickable="true"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="34dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="fitCenter"
+                                    android:clickable="false"
+                                    app:srcCompat="@mipmap/order_pending_receipt" />
+
+                                <TextView
+                                    android:id="@+id/notifyWaitGet"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/me_notify_badge"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:clickable="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:visibility="invisible"/>
+                            </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="待收货"
+                                android:textColor="#ff555555"
+                                android:clickable="false"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:id="@+id/buttonAfterSale"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:clickable="true"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="34dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="fitCenter"
+                                    android:clickable="false"
+                                    app:srcCompat="@mipmap/order_refund" />
+
+                                <TextView
+                                    android:id="@+id/notifyAfterSale"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/me_notify_badge"
+                                    android:clickable="false"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:visibility="invisible" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="售后/退货"
+                                android:clickable="false"
+                                android:textColor="#ff555555"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:id="@+id/buttonOrderAll"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:clickable="true"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="34dp"
+                                android:layout_height="wrap_content" >
+
+                                <ImageButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="fitCenter"
+                                    android:clickable="false"
+                                    app:srcCompat="@mipmap/order_all" />
+
+                                <TextView
+                                    android:id="@+id/notifyAll"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/me_notify_badge"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:clickable="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:visibility="invisible" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="我的订单"
+                                android:clickable="false"
+                                android:textColor="#ff555555"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="9dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                android:outlineSpotShadowColor="@color/text_hint">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/wait_send"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/wait_send"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonWaitGet"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/buttonFavorite"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:clickable="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="34dp"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:clickable="false"
+                                app:srcCompat="@mipmap/me_favorite" />
+
+                            <TextView
+                                android:id="@+id/notifyFavorite"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/me_notify_badge"
+                                android:clickable="false"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="invisible" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的收藏"
+                            android:clickable="false"
+                            android:textColor="#ff555555"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:id="@+id/buttonAddressManagement"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:clickable="true"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="34dp"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:clickable="false"
+                                app:srcCompat="@mipmap/me_mange_address" />
+
+                            <TextView
+                                android:id="@+id/notifyAddressManagement"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/me_notify_badge"
+                                android:gravity="center"
+                                android:text="1"
+                                android:clickable="false"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="invisible"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="地址管理"
+                            android:clickable="false"
+                            android:textColor="#ff555555"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:id="@+id/buttonFeedBack"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:clickable="true"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="34dp"
+                            android:layout_height="wrap_content" >
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:color/transparent"
+                                android:clickable="false"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@mipmap/me_feedback" />
+
+                            <TextView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/me_notify_badge"
+                                android:gravity="center"
+                                android:text="1"
+                                android:clickable="false"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="invisible"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="意见反馈"
+                            android:clickable="false"
+                            android:textColor="#ff555555"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:id="@+id/buttonContact"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:clickable="true"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="34dp"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:clickable="false"
+                                app:srcCompat="@mipmap/me_customer_service" />
+
+                            <TextView
+                                android:id="@+id/notifyContact"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/me_notify_badge"
+                                android:gravity="center"
+                                android:text="1"
+                                android:clickable="false"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="invisible"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="华物商客服"
+                            android:clickable="false"
+                            android:textColor="#ff555555"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="16dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                android:outlineSpotShadowColor="@color/text_hint"
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/wait_get"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/wait_get"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonCompleted"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/completed"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/completed"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
+                    <RelativeLayout
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content" >
 
-            </LinearLayout>
+                        <ImageButton
+                            android:id="@+id/buttonEnterpriseBuy"
+                            android:layout_width="48dp"
+                            android:layout_height="56dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/enterprise_buy" />
+                        <TextView
+                            android:id="@+id/notifyEnterpriseBuy"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/notify_circle"
+                            android:gravity="center"
+                            android:text="99"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:visibility="invisible"/>
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <RelativeLayout
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/buttonCreditCardManage"
+                            android:layout_width="48dp"
+                            android:layout_height="56dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/credit_card" />
+                        <TextView
+                            android:id="@+id/notifyCreditCardManage"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/notify_circle"
+                            android:gravity="center"
+                            android:text="99"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:visibility="invisible"/>
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <RelativeLayout
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/buttonBranch"
+                            android:layout_width="48dp"
+                            android:layout_height="56dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/branch" />
+                        <TextView
+                            android:id="@+id/notifyBranch"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/notify_circle"
+                            android:gravity="center"
+                            android:text="99"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:visibility="invisible"/>
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <RelativeLayout
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/buttonCustomerService"
+                            android:layout_width="48dp"
+                            android:layout_height="56dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/customer_service" />
+                        <TextView
+                            android:id="@+id/notifyCustomerService"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/notify_circle"
+                            android:gravity="center"
+                            android:text="99"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:visibility="invisible"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/recommend"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/recommended_me" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommended_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"/>
+
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.card.MaterialCardView
+    <ImageView
+        android:id="@+id/no_internet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        app:cardCornerRadius="8dp">
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/no_wifi"
+        android:visibility="gone"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/my_service"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonFavorite"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/my_favorite"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/favorite"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonAfterSale"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="@string/after_sale"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/after_sale"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonAddressManagement"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/address_management"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/address"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonContact"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="@string/contact_customer"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/contact_customer"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonEnterpriseBuy"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/enterprise_buy"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/enterprise_buy"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonBranch"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="@string/branch"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/branch"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonCreditCardManage"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="@string/credit_card_management"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/credit_card"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonCustomerService"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:letterSpacing="0"
-                    android:text="@string/customer_service"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:textColor="@color/text"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    app:icon="@drawable/customer_service"
-                    app:iconGravity="top"
-                    app:iconSize="36dp"
-                    app:iconTint="@color/text" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_logout"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+    <View
+        android:id="@+id/tool_bar_boarder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="32dp"
-        android:layout_weight="0"
-        android:clickable="false"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:letterSpacing="0"
-        android:minWidth="64dp"
-        android:text="@string/logout"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        android:textColor="@color/white"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        app:backgroundTint="@color/red"
-        app:cornerRadius="8dp" />
-</LinearLayout>
+        android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="84dp"
+        android:background="#ffe0e0e0"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

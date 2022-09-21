@@ -7,79 +7,134 @@
     tools:context=".ui.ShippingAddressActivity">
 
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:orientation="vertical">
+        android:layout_height="76dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:visibility="visible">
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="36dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/back" />
+        <TextView
+            android:id="@+id/toolbar_shipping_address"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="36dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:textColor="@color/text_main"
+            android:text="@string/receiving_address"
+            android:textSize="16sp"/>
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp">
+
+            <ImageButton
+                android:id="@+id/more"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/more_icon_white" />
+
+            <TextView
+                android:id="@+id/notifyCompleted"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/notify_circle_red"
+                android:gravity="top|center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="76dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
-            android:id="@+id/no_result_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <ImageView
-                android:id="@+id/imgItem"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_marginTop="100dp"
-                android:src="@drawable/no_result"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:textSize="20dp"
-                android:textColor="#666666"
-                android:textStyle="bold"
-                android:text="您还没有地址"/>
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/rectangle_border"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/add_address_btn"
-            android:layout_width="145dp"
-            android:layout_height="40dp"
-            android:minWidth="99dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/round_red_solid"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/round_red_btn"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="9dp"
             android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:text="+添加地址" />
+            android:textSize="12sp"
+            android:text="@string/add_shipping_address" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/toolbar"
+        android:id="@+id/no_result_area"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/rectangle_gray_border"
-        android:visibility="visible">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="76dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/imgItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="111dp"
+            android:src="@mipmap/none_address"/>
         <TextView
-            android:id="@+id/toolbar_outlook"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
-            android:textColor="#333333"
-            android:text="收货地址"
-            android:textSize="18sp"
-            android:textStyle="normal"/>
+            android:id="@+id/txt_no_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_shipping_address"
+            android:layout_marginTop="15dp"
+            android:textColor="#ff999999"
+            android:textSize="16sp"/>
+        <Button
+            android:id="@+id/new_address"
+            android:layout_width="100dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/round_btn_gray_stroke_16"
+            android:textSize="12sp"
+            android:textColor="@color/text_main"
+            android:text="@string/new_address"/>
     </LinearLayout>
-    <ImageButton
-        android:id="@+id/button_back"
-        android:layout_width="42dp"
-        android:layout_height="50dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:paddingLeft="16dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/back" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

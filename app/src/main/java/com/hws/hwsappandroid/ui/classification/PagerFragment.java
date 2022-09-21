@@ -82,7 +82,7 @@ public class PagerFragment extends Fragment {
     private void populateRecyclerView() {
         ArrayList<Children_level_1> childrenLvl1 =  mcategory.childrenList;
 
-        SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter(getContext(), recyclerViewType, childrenLvl1);
+        SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter(getContext(), recyclerViewType);
         recyclerView.setAdapter(adapter);
     }
 

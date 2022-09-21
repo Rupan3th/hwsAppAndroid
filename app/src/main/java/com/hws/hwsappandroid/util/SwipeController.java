@@ -33,7 +33,12 @@ public class SwipeController extends Callback {
 
     private SwipeControllerActions buttonsActions = null;
 
-    private static final float buttonWidth = 300;
+    private static final float buttonWidth = 240;
+
+    public String buttonTxt;
+
+    float corners_radius = 0;
+    float text_size = 24;
 
     public SwipeController(SwipeControllerActions buttonsActions) {
         this.buttonsActions = buttonsActions;
@@ -152,8 +157,8 @@ public class SwipeController extends Callback {
     }
 
     private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder) {
-        float buttonWidthWithoutPadding = buttonWidth - 20;
-        float corners = 16;
+        float buttonWidthWithoutPadding = buttonWidth - 2;  //20
+        float corners = corners_radius;  //16
 
         View itemView = viewHolder.itemView;
         Paint p = new Paint();
@@ -164,9 +169,9 @@ public class SwipeController extends Callback {
         drawText("EDIT", c, leftButton, p);
 
         RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
-        p.setColor(Color.RED);
+        p.setColor(Color.parseColor("#F53F3F"));
         c.drawRoundRect(rightButton, corners, corners, p);
-        drawText("删除", c, rightButton, p);
+        drawText(buttonTxt, c, rightButton, p);
 
         buttonInstance = null;
         if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
@@ -178,7 +183,7 @@ public class SwipeController extends Callback {
     }
 
     private void drawText(String text, Canvas c, RectF button, Paint p) {
-        float textSize = 60;
+        float textSize = 40;
         p.setColor(Color.WHITE);
         p.setAntiAlias(true);
         p.setTextSize(textSize);
@@ -187,7 +192,10 @@ public class SwipeController extends Callback {
         c.drawText(text, button.centerX()-(textWidth/2), button.centerY()+(textSize/2), p);
     }
 
-    public void onDraw(Canvas c) {
+    public void onDraw(Canvas c, String buttonTxt, float corners_radius, float text_size) {
+        this.buttonTxt = buttonTxt;
+        this.corners_radius = corners_radius;
+        this.text_size = text_size;
         if (currentItemViewHolder != null) {
             drawButtons(c, currentItemViewHolder);
         }

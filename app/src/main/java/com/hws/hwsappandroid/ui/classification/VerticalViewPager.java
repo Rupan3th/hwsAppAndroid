@@ -43,6 +43,7 @@ public class VerticalViewPager extends ViewPager {
         height = (float) getHeight();
         newX = ev.getX() ;
         newY = ev.getY() ;
+
         ev.setLocation(newX,newY);
         return ev;
     }
@@ -61,6 +62,7 @@ public class VerticalViewPager extends ViewPager {
             } else {
                 page.setVisibility(View.INVISIBLE);
             }
+
         }
     }
 }

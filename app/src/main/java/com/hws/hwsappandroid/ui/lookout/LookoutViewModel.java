@@ -22,13 +22,9 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class LookoutViewModel extends ViewModel {
-    private final MutableLiveData<ArrayList<Banner>> mBanners = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Good>> mGoods = new MutableLiveData<>();
     private boolean isLoading = false;
-
-    public LiveData<ArrayList<Banner>> getBanners() {
-        return mBanners;
-    }
+    private int currentPage = 1;
 
     public LiveData<ArrayList<Good>> getGoods() {
         return mGoods;
@@ -40,33 +36,18 @@ public class LookoutViewModel extends ViewModel {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                RequestParams params = new RequestParams();
-                String url = "/appBanner/queryBannerAndAll";
-                APIManager.get(url, params, new JsonHttpResponseHandler() {
+                currentPage = 1;
+                JSONObject jsonParams = new JSONObject();
+
+                String url = "/bizGoods/queryStreetGoods?startPage=1";
+                APIManager.postJson(url, jsonParams, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             if (response.getBoolean("status")) {
                                 JSONObject obj = response.getJSONObject("data");
-                                JSONArray list = obj.getJSONArray("list");
-                                obj = list.getJSONObject(0);
+                                JSONArray goodsJson = obj.getJSONArray("list");
 
-                                JSONArray bannersJson = obj.getJSONArray("banners");
-                                ArrayList<Banner> bannerArr = new ArrayList<>();
-                                for (int i=0; i<bannersJson.length(); i++) {
-                                    JSONObject bJson = bannersJson.getJSONObject(i);
-                                    Banner banner = new Banner();
-                                    banner.bannerPic = bJson.optString("bannerPic");
-                                    banner.enableStatus = bJson.optInt("enableStatus", 1);
-                                    banner.gotoContent = bJson.optString("gotoContent", "");
-                                    banner.gotoType = bJson.optInt("gotoType", 1);
-                                    banner.pkId = bJson.optString("pkId", "");
-                                    banner.sort = bJson.optString("sort", "1");
-                                    bannerArr.add(banner);
-                                }
-                                mBanners.postValue(bannerArr);
-
-                                JSONArray goodsJson = obj.getJSONObject("goods").getJSONArray("list");
                                 ArrayList<Good> goodArr = new ArrayList<>();
                                 for (int i=0; i<goodsJson.length(); i++) {
                                     JSONObject json = goodsJson.getJSONObject(i);
@@ -77,7 +58,7 @@ public class LookoutViewModel extends ViewModel {
                                     good.goodsPicPreferred = json.optString("goodsPicPreferred", "");
                                     good.goodsSn = json.optString("goodsSn", "");
                                     good.goodsSpecId = json.optString("goodsSpecId", "");
-                                    good.price = json.optInt("price", 1);
+                                    good.price = json.optString("price", "1.00");
                                     good.salesNum = json.optInt("salesNum", 1);
                                     good.isPreferred = json.optInt("isPreferred", 1);
                                     good.shopId = json.optString("shopId", "");
@@ -128,20 +109,11 @@ public class LookoutViewModel extends ViewModel {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                Log.d("Home", "Trying to load more...");
+                Log.d("Home", "Trying to load more..." + currentPage);
 //                RequestParams params = new RequestParams();
                 JSONObject jsonParams = new JSONObject();
-                ArrayList<Good> goodArr = mGoods.getValue();
-                if (goodArr.size() > 0) {
-                    Good aGood = goodArr.get(goodArr.size()-1);
-//                    params.add("pkId", aGood.pkId);
-                    try {
-                        jsonParams.put("pkId", aGood.pkId);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                String url = "/bizGoods/queryPreferredInfo";
+                currentPage += 1;
+                String url = "/bizGoods/queryStreetGoods?startPage="+currentPage;
                 APIManager.postJson(url, jsonParams, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -159,7 +131,7 @@ public class LookoutViewModel extends ViewModel {
                                     good.goodsPicPreferred = json.optString("goodsPicPreferred", "");
                                     good.goodsSn = json.optString("goodsSn", "");
                                     good.goodsSpecId = json.optString("goodsSpecId", "");
-                                    good.price = json.optInt("price", 1);
+                                    good.price = json.optString("price", "1.00");
                                     good.salesNum = json.optInt("salesNum", 1);
                                     good.isPreferred = json.optInt("isPreferred", 1);
                                     good.shopId = json.optString("shopId", "");

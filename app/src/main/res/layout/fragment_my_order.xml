@@ -7,21 +7,66 @@
     android:layout_height="match_parent"
     tools:context=".ui.me.main.PlaceholderFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription='"Me Content"'>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myOrderList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"/>
+
+            <RelativeLayout
+                android:id="@+id/none_order"
+                android:layout_width="match_parent"
+                android:layout_height="151dp"
+                android:background="#FFF9F9F9">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/none_order" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_have_related_orders"
+                    android:textColor="#ff555555"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+
+
+
+            <ImageView
+                android:id="@+id/recommend"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="46dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/recommended_me" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommended_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,10 @@
 package com.hws.hwsappandroid.ui.lookout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +17,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hws.hwsappandroid.databinding.FragmentLookoutBinding;
@@ -35,6 +41,15 @@ public class LookoutFragment extends Fragment implements ItemClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
+        View decorView = requireActivity().getWindow().getDecorView();
+//        decorView.setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|
+//                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+//                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|
+//                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 //        view = inflater.inflate(R.layout.fragment_lookout, container, false);
 
         binding = FragmentLookoutBinding.inflate(inflater, container, false);
@@ -51,7 +66,7 @@ public class LookoutFragment extends Fragment implements ItemClickListener {
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setClickListener(this);
-        model.loadData();
+        if(NetworkCheck())  model.loadData();
         model.getGoods().observe(this, goods -> {
             mAdapter.setData(goods);
         });
@@ -76,47 +91,61 @@ public class LookoutFragment extends Fragment implements ItemClickListener {
     @Override
     public void onClick(View view, int position) {
         Intent detailProduct = new Intent(getActivity(), ProductDetailActivity.class);
-        Good productInfo = mAdapter.getGoodInfo(position);
-        String good_name = productInfo.goodsName;
-        String good_sn = productInfo.goodsSn;
-//        String imageName = courseModelArrayList.get(position-1).getCourse_name();
-//        String productInfo = courseModelArrayList.get(position-1).getProductInfo();
-//        String price = courseModelArrayList.get(position-1).getPrice();
+        Good productInfo = mAdapter.getGoodInfo(position-1);
+        String pkId = productInfo.pkId;
+        String good_price = productInfo.price;
 
-//        detailImage.putExtra("imageName", imageName);
-
+        detailProduct.putExtra("pkId", pkId);
         startActivity(detailProduct);
 
     }
-
-//    void setAppBarLayoutOffset() {
-//        float dip = 0 ;
-//        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
-//        ObjectAnimator animator = ObjectAnimator.ofFloat(toolbar, "translationY", px);
-//        animator.setDuration(100);
-//        animator.start();
-//    }
-
-//    private void CreateModelArrayList(){
-//        courseModelArrayList.clear();
-//        File dir_image = new File(path + "images");
-//        if(dir_image.exists()) {
-//            try{
-//                for (int i = 0; i < dir_image.listFiles().length; i++) {
-//                    String image_name = path + "images/" + dir_image.listFiles()[i].getName();
-//                    Bitmap bitmap = BitmapFactory.decodeFile(image_name);
-//                    courseModelArrayList.add(new CourseModel(image_name, bitmap, "拓普特轮胎 防滑 冬季", "￥489.00"));
-//                }
-//            }catch (Exception e){
-//
-//            }
-//
-//        }
-//    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void NoInternet() {
+        binding.noInternet.setVisibility(View.VISIBLE);
+
+        binding.recyclerView.setVisibility(View.GONE);
+    }
+
+    public boolean NetworkCheck(){
+        boolean isConnected = isNetworkConnected(getContext());
+        if (!isConnected)
+        {
+            NoInternet();
+        }
+        return isConnected;
+    }
+
+    public boolean isNetworkConnected(Context context)
+    {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo wimax = manager.getNetworkInfo(ConnectivityManager.TYPE_WIMAX);
+        boolean bwimax = false;
+        if (wimax != null)
+        {
+            bwimax = wimax.isConnected();
+        }
+        if (mobile != null)
+        {
+            if (mobile.isConnected() || wifi.isConnected() || bwimax)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (wifi.isConnected() || bwimax)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

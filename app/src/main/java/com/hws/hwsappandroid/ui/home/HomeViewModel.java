@@ -1,16 +1,20 @@
 package com.hws.hwsappandroid.ui.home;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.hws.hwsappandroid.R;
+
 import com.hws.hwsappandroid.api.APIManager;
 import com.hws.hwsappandroid.model.Good;
+import com.hws.hwsappandroid.model.GoodClass;
+import com.hws.hwsappandroid.model.HomeCategory;
+import com.hws.hwsappandroid.model.Params;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -19,14 +23,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class HomeViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<Banner>> mBanners = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<HomeCategory>> mCategories = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<GoodClass>> mGoodClass = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Good>> mGoods = new MutableLiveData<>();
     private boolean isLoading = false;
 
@@ -42,6 +47,10 @@ public class HomeViewModel extends ViewModel {
         return mGoods;
     }
 
+    public LiveData<ArrayList<GoodClass>> getGoodClass() {
+        return mGoodClass;
+    }
+
     public void loadData() {
         if (isLoading) return;
         isLoading = true;
@@ -50,6 +59,7 @@ public class HomeViewModel extends ViewModel {
             public void run() {
                 RequestParams params = new RequestParams();
                 String url = "/appBanner/queryBannerAndAll";
+                
                 APIManager.get(url, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -69,10 +79,29 @@ public class HomeViewModel extends ViewModel {
                                     banner.gotoContent = bJson.optString("gotoContent", "");
                                     banner.gotoType = bJson.optInt("gotoType", 1);
                                     banner.pkId = bJson.optString("pkId", "");
-                                    banner.sort = bJson.optString("sort", "1");
+                                    banner.orderBy = bJson.optString("orderBy", "1");
                                     bannerArr.add(banner);
                                 }
                                 mBanners.postValue(bannerArr);
+
+                                JSONArray homeNavigationJson = obj.getJSONArray("homeNavigation");
+                                ArrayList<GoodClass> goodClasses = new ArrayList<>();
+                                GoodClass home_nav = new GoodClass();
+                                home_nav.categoryName = "首页";
+                                home_nav.level = 1;
+                                home_nav.pkId = "";
+                                home_nav.selected = true;
+                                goodClasses.add(home_nav);
+
+                                for (int i=0; i<homeNavigationJson.length(); i++) {
+                                    JSONObject hnJson = homeNavigationJson.getJSONObject(i);
+                                    GoodClass goodClass = new GoodClass();
+                                    goodClass.categoryName = hnJson.optString("categoryName", "");
+                                    goodClass.level = hnJson.optInt("level", 1);
+                                    goodClass.pkId = hnJson.optString("pkId", "");
+                                    goodClasses.add(goodClass);
+                                }
+                                mGoodClass.postValue(goodClasses);
 
                                 JSONArray categoriesJson = obj.getJSONArray("categorys");
                                 ArrayList<HomeCategory> categoryArr = new ArrayList<>();
@@ -102,7 +131,7 @@ public class HomeViewModel extends ViewModel {
                                     good.goodsPicPreferred = json.optString("goodsPicPreferred", "");
                                     good.goodsSn = json.optString("goodsSn", "");
                                     good.goodsSpecId = json.optString("goodsSpecId", "");
-                                    good.price = json.optInt("price", 1);
+                                    good.price = json.optString("price", "1.00");
                                     good.salesNum = json.optInt("salesNum", 1);
                                     good.isPreferred = json.optInt("isPreferred", 1);
                                     good.shopId = json.optString("shopId", "");
@@ -112,6 +141,27 @@ public class HomeViewModel extends ViewModel {
                                     good.outSaleTime = json.optString("outSaleTime", "");
                                     good.gmtCreate = json.optString("gmtCreate", "");
                                     good.gmtModified = json.optString("gmtModified", "");
+
+                                    ArrayList<Params> goodsParam = new ArrayList<>();
+                                    JSONObject goodsParamJson = new JSONObject();
+                                    try {
+                                        goodsParamJson = new JSONObject(json.optString("goodsParam", ""));
+                                    } catch (Throwable tx) {
+                                        Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                                    }
+
+//                                    JSONObject goodsParamJson = json.getJSONObject("goodsParam");
+                                    Iterator<String> keys = goodsParamJson.keys();
+                                    while (keys.hasNext()) {
+                                        String key = keys.next();
+                                        Params goodParam = new Params();
+                                        goodParam.key = key;
+                                        goodParam.value = goodsParamJson.optString(key, "");
+                                        goodsParam.add(goodParam);
+                                    }
+//                                    good.goodsParam = json.optString("goodsParam", "");
+                                    good.goodsParam = goodsParam;
+
                                     goodArr.add(good);
                                 }
                                 mGoods.postValue(goodArr);
@@ -130,6 +180,7 @@ public class HomeViewModel extends ViewModel {
                         Log.d("Home request", ""+statusCode);
 //                        progressDialog.dismiss();
 //                        Toast.makeText(mContext, res.getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                        mBanners.postValue(null);
                         isLoading = false;
                     }
 
@@ -183,7 +234,7 @@ public class HomeViewModel extends ViewModel {
                                     good.goodsPicPreferred = json.optString("goodsPicPreferred", "");
                                     good.goodsSn = json.optString("goodsSn", "");
                                     good.goodsSpecId = json.optString("goodsSpecId", "");
-                                    good.price = json.optInt("price", 1);
+                                    good.price = json.optString("price", "1.00");
                                     good.salesNum = json.optInt("salesNum", 1);
                                     good.isPreferred = json.optInt("isPreferred", 1);
                                     good.shopId = json.optString("shopId", "");
@@ -193,6 +244,27 @@ public class HomeViewModel extends ViewModel {
                                     good.outSaleTime = json.optString("outSaleTime", "");
                                     good.gmtCreate = json.optString("gmtCreate", "");
                                     good.gmtModified = json.optString("gmtModified", "");
+
+                                    ArrayList<Params> goodsParam = new ArrayList<>();
+                                    JSONObject goodsParamJson = new JSONObject();
+                                    try {
+                                        goodsParamJson = new JSONObject(json.optString("goodsParam", ""));
+                                    } catch (Throwable tx) {
+                                        Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                                    }
+
+//                                    JSONObject goodsParamJson = json.getJSONObject("goodsParam");
+                                    Iterator<String> keys = goodsParamJson.keys();
+                                    while (keys.hasNext()) {
+                                        String key = keys.next();
+                                        Params goodParam = new Params();
+                                        goodParam.key = key;
+                                        goodParam.value = goodsParamJson.optString(key, "");
+                                        goodsParam.add(goodParam);
+                                    }
+//                                    good.goodsParam = json.optString("goodsParam", "");
+                                    good.goodsParam = goodsParam;
+
                                     goodArr.add(good);
                                 }
                                 mGoods.postValue(goodArr);
@@ -224,6 +296,190 @@ public class HomeViewModel extends ViewModel {
             }
         });
     }
+
+    public void loadSearchGoods(String keyword) {
+        if (isLoading) return;
+        isLoading = true;
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (APIManager.getAuthToken().length() > 0) {
+                    JSONObject jsonParams = new JSONObject();
+                    try {
+                        jsonParams.put("goodsName", keyword);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    String url = "/bizGoods/findAll";
+                    APIManager.postJson(url, jsonParams, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                if (response.getBoolean("status")) {
+
+                                    JSONObject obj = response.getJSONObject("data");
+                                    JSONArray goodsJson = obj.getJSONArray("list");
+                                    ArrayList<Good> searchGoods = new ArrayList<>();
+
+                                    for (int i=0; i<goodsJson.length(); i++) {
+                                        JSONObject json = goodsJson.getJSONObject(i);
+                                        Good good = new Good();
+                                        good.pkId = json.optString("pkId", "");
+                                        good.goodsName = json.optString("goodsName", "");
+                                        good.goodsPic = json.optString("goodsPic", "");
+                                        good.goodsPicPreferred = json.optString("goodsPicPreferred", "");
+                                        good.goodsSn = json.optString("goodsSn", "");
+                                        good.goodsSpecId = json.optString("goodsSpecId", "");
+                                        good.price = json.optString("price", "");
+                                        good.salesNum = json.optInt("salesNum", 1);
+                                        good.isPreferred = json.optInt("isPreferred", 1);
+                                        good.shopId = json.optString("shopId", "");
+                                        good.shopName = json.optString("shopName", "");
+                                        good.operatorId = json.optString("operatorId", "");
+                                        good.bizClientId = json.optString("bizClientId", "");
+                                        good.onSaleTime = json.optString("onSaleTime", "");
+                                        good.outSaleTime = json.optString("outSaleTime", "");
+                                        good.gmtCreate = json.optString("gmtCreate", "");
+                                        good.gmtModified = json.optString("gmtModified", "");
+
+                                        ArrayList<Params> goodsParam = new ArrayList<>();
+                                        JSONObject goodsParamJson = new JSONObject();
+                                        try {
+                                            goodsParamJson = new JSONObject(json.optString("goodsParam", ""));
+                                        } catch (Throwable tx) {
+                                            Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                                        }
+
+//                                    JSONObject goodsParamJson = json.getJSONObject("goodsParam");
+                                        Iterator<String> keys = goodsParamJson.keys();
+                                        while (keys.hasNext()) {
+                                            String key = keys.next();
+                                            Params goodParam = new Params();
+                                            goodParam.key = key;
+                                            goodParam.value = goodsParamJson.optString(key, "");
+                                            goodsParam.add(goodParam);
+                                        }
+//                                    good.goodsParam = json.optString("goodsParam", "");
+                                        good.goodsParam = goodsParam;
+
+                                        searchGoods.add(good);
+                                    }
+                                    mGoods.postValue(searchGoods);
+                                } else {
+                                    Log.d("Home request", response.toString());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            isLoading = false;
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.d("Home request", errorResponse.toString());
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                            isLoading = false;
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            Log.d("Home request", responseString);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_db), Toast.LENGTH_SHORT).show();
+                            isLoading = false;
+                        }
+                    });
+                } else {
+                    RequestParams params = new RequestParams();
+                    params.put("goodsName", keyword);
+                    String url = "/bizGoods/likeGoodsName";
+                    APIManager.get(url, params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                if (response.getBoolean("status")) {
+
+                                    JSONObject obj = response.getJSONObject("data");
+                                    JSONArray goodsJson = obj.getJSONArray("list");
+                                    ArrayList<Good> searchGoods = new ArrayList<>();
+
+                                    for (int i=0; i<goodsJson.length(); i++) {
+                                        JSONObject json = goodsJson.getJSONObject(i);
+                                        Good good = new Good();
+                                        good.pkId = json.optString("pkId", "");
+                                        good.goodsName = json.optString("goodsName", "");
+                                        good.goodsPic = json.optString("goodsPic", "");
+                                        good.goodsPicPreferred = json.optString("goodsPicPreferred", "");
+                                        good.goodsSn = json.optString("goodsSn", "");
+                                        good.goodsSpecId = json.optString("goodsSpecId", "");
+                                        good.price = json.optString("price", "");
+                                        good.salesNum = json.optInt("salesNum", 1);
+                                        good.isPreferred = json.optInt("isPreferred", 1);
+                                        good.shopId = json.optString("shopId", "");
+                                        good.shopName = json.optString("shopName", "");
+                                        good.operatorId = json.optString("operatorId", "");
+                                        good.bizClientId = json.optString("bizClientId", "");
+                                        good.onSaleTime = json.optString("onSaleTime", "");
+                                        good.outSaleTime = json.optString("outSaleTime", "");
+                                        good.gmtCreate = json.optString("gmtCreate", "");
+                                        good.gmtModified = json.optString("gmtModified", "");
+
+                                        ArrayList<Params> goodsParam = new ArrayList<>();
+                                        JSONObject goodsParamJson = new JSONObject();
+                                        try {
+                                            goodsParamJson = new JSONObject(json.optString("goodsParam", ""));
+                                        } catch (Throwable tx) {
+                                            Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                                        }
+
+//                                    JSONObject goodsParamJson = json.getJSONObject("goodsParam");
+                                        Iterator<String> keys = goodsParamJson.keys();
+                                        while (keys.hasNext()) {
+                                            String key = keys.next();
+                                            Params goodParam = new Params();
+                                            goodParam.key = key;
+                                            goodParam.value = goodsParamJson.optString(key, "");
+                                            goodsParam.add(goodParam);
+                                        }
+//                                    good.goodsParam = json.optString("goodsParam", "");
+                                        good.goodsParam = goodsParam;
+
+                                        searchGoods.add(good);
+                                    }
+                                    mGoods.postValue(searchGoods);
+                                } else {
+                                    Log.d("Home request", response.toString());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            isLoading = false;
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.d("Home request", errorResponse.toString());
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                            isLoading = false;
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            Log.d("Home request", responseString);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_db), Toast.LENGTH_SHORT).show();
+                            isLoading = false;
+                        }
+                    });
+
+                }
+            }
+        });
+    }
 }
 
 class Banner {
@@ -232,16 +488,6 @@ class Banner {
     public String gotoContent;
     public int gotoType;
     public String pkId;
-    public String sort;
+    public String orderBy;
 }
 
-class HomeCategory {
-    public String code;
-    public String name;
-    public String img;
-    public int level;
-    public String operatorId;
-    public int parentId;
-    public String pkId;
-    public int sortValue;
-}

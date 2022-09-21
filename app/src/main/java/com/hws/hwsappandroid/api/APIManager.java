@@ -7,6 +7,8 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
+
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
@@ -23,6 +25,15 @@ public class APIManager {
 
     public static void setContext(Context context) {
         mContext = context;
+
+        client.setTimeout(3000);
+        client.setConnectTimeout(3000);
+        client.setResponseTimeout(3000);
+
+    }
+
+    public static String getAuthToken() {
+        return authToken;
     }
 
     public static void setAuthToken(String token) {
@@ -49,17 +60,25 @@ public class APIManager {
     public static void postJson(String url, JSONObject jsonParams, AsyncHttpResponseHandler responseHandler) {
         Header[] headers = {
                 new BasicHeader("Accept", "application/json"),
+                new BasicHeader("Content-Type","application/json; charset=utf-8"),
                 new BasicHeader("Authorization", authToken)
         };
 
         StringEntity entity;
         try {
-            entity = new StringEntity(jsonParams.toString());
+            entity = new StringEntity(jsonParams.toString(), Charset.forName("UTF-8"));
             client.post(mContext, getUrl(url), headers, entity, "application/json", responseHandler);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public static void postUpload(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+        httpClient.addHeader("Authorization", authToken);
+        httpClient.post(getUrl(url), params, responseHandler);
+    }
+
 
     private static String getUrl(String relativeUrl) {
         return URL + relativeUrl;

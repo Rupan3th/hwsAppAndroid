@@ -11,15 +11,16 @@
 
     <ImageView
         android:id="@+id/image_home_category"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:scaleType="centerInside" />
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/text_home_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/all_goods"
+        android:text="更多"
         android:textSize="12sp" />
 </LinearLayout>

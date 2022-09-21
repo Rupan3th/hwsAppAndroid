@@ -7,7 +7,7 @@
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/windowBackground</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+<!--        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>-->
     </style>
 
     <style name="Theme.HwsAppAndroid.NoActionBar">
@@ -18,4 +18,18 @@
     <style name="Theme.HwsAppAndroid.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.HwsAppAndroid.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <!-- Make the status bar traslucent -->
+
+    <style name="AppTheme" parent="Theme.HwsAppAndroid">
+
+        <item name="android:windowTranslucentStatus">true</item>
+
+    </style>
+
 </resources>

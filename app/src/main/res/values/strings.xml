@@ -10,24 +10,24 @@
     <string name="search_history">搜索历史</string>
     <string name="clear_history">清除历史</string>
     <string name="no_matching_items_found">没有找到匹配的商品</string>
-    <string name="please_select_lang">请选择你的语言</string>
-    <string name="please_select_lang_en">（Please choose your Language）</string>
+    <string name="please_select_lang">请选择语言</string>
+    <string name="please_select_lang_kr">언어를 선택하십시오</string>
     <string name="select_lang">选择语言</string>
     <string name="language">language</string>
     <string name="chinese_simple">简体中文</string>
-    <string name="korean">조선</string>
+    <string name="korean">조선 (朝鲜)</string>
     <string name="koreans">조선어</string>
-    选择语言
     <string name="home_top_description">优选国内好物</string>
     <string name="message">消息</string>
     <string name="search">搜索</string>
     <string name="goods">产品</string>
-    <string name="search_goods">搜索产品</string>
+    <string name="search_goods">搜索商品</string>
     <string name="all_goods">全部产品</string>
     <string name="preferred_goods">优选商品</string>
     <string name="error_message">网络错误。 请再试一次。</string>
     <string name="error_db">数据库错误。</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="search_my_order">搜索我的订单</string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
@@ -53,5 +53,290 @@
     <string name="not_implemented">亲，功能暂未开放，尽请期待</string>
     <string name="cd_arrow_icon">Arrow icon</string>
     <string name="cd_avatar_icon">Avatar icon</string>
+    <string name="image_of_goods">商品的形象</string>商品名称
+    <string name="trad_name">商品名称</string>
+    <string name="please_input_mobile">手机号</string>
+    <string name="please_input_phone">请输入手机号</string>
+    <string name="please_input_verify_code">请输入验证码</string>
+    <string name="send_verify_code">发送验证码</string>
+    <string name="verify_code">验证码</string>
+    <string name="login">登录</string>
+    <string name="welcome">华物商欢迎您</string>
+    <string name="login_commentary">请按提示输入手机号与验证码</string>
+    <string name="please_verify_code">请确认验证码。</string>
+    <string name="verify_code_incorrect">请输入正确验证码。</string>
+    <string name="please_input_correct_phone_num">请输入正确手机号码。</string>
+    <string name="phone_num">手机号码</string>
+    <string name="success">成功</string>
+    <string name="left_time">验证码大约需要</string>
+    <string name="str_hour">小时</string>
+    <string name="str_minute">分</string>
+    <string name="str_second">秒</string>
+
+    <string name="title_cashier">华物商收银台</string>
+    <string name="paid_amount">实付金额</string>
+    <string name="immediate_payment">立即支付</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="wechat_pay">微信支付</string>
+
+    <string name="pending_receipt">待收货</string>
+    <string name="service_message_order">如收到的商品出现质量、错发、漏发等问题，请联系客服或拨打热线</string>
+    <string name="waiting_merchant_process">等待商家处理</string>
+    <string name="after_waiting_merchant_complete">等待商家处理完成后订单金额原路返回，可与客服沟通</string>
+    <string name="communicate_customer_service">可以与客服进行沟通</string>
+    <string name="product_information">商品信息</string>
+    <string name="product_name">商品名称</string>
+    <string name="reason_return">退款原因:</string>
+    <string name="order_amount">订单金额</string>
+    <string name="order_amount_dot">订单金额:</string>
+    <string name="application_type">申请类型:</string>
+    <string name="receipt_status">收货状态:</string>
+    <string name="chargeback_number">退单编号:</string>
+    <string name="application_time">申请时间:</string>
+    <string name="copy">复制</string>
+    <string name="close_application">关闭申请</string>
+    <string name="view_progress">查看进度</string>
+    <string name="after_sale_goods">售后商品</string>
+    <string name="processing">处理中</string>
+    <string name="submit_application">提交申请</string>
+    <string name="approved">审核通过</string>
+    <string name="agree_privacy">我已阅读并同意</string>
+    <string name="user_register_agreement">《用户注册协议》</string>
+    <string name="privacy_policy">《隐私政策》</string>
+    <string name="register">登录/注册</string>
+    <string name="view_details">查看详情</string>
+    <string name="delete_record">删除记录</string>
+    <string name="refund_amount">退款金额</string>
+    <string name="refund_method">退款方式</string>
+    <string name="approve_text">审核中</string>
+    <string name="refund_completed">退款完成</string>
+    <string name="shipped_by_seller">卖家已发货</string>
+    <string name="shipped_notify">待收货，商品签收7天后，自动确认收货</string>
+    <string name="commodity_shipping">商品运费</string>
+    <string name="order_number">订单编号:</string>
+    <string name="order_time">下单时间:</string>
+    <string name="payment_method">支付方式:</string>
+    <string name="payment_time">付款时间:</string>
+    <string name="waiting_for_payment">等待付款</string>
+    <string name="payment_required">需付款: ￥</string>
+    <string name="remaining">剩余</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="buyer_paid">买家已付款</string>
+    <string name="waiting_for_seller_to_ship">等待卖家发货</string>
+    <string name="view_logistics">查看物流</string>
+    <string name="request_refund">申请退款</string>
+    <string name="refunded_item">退款商品</string>
+    <string name="logistics_info">物流信息</string>
+    <string name="receiving_status">收货状态</string>
+    <string name="not_received">未收货</string>
+    <string name="do_not_want">不想要了</string>
+    <string name="received_goods">已收货</string>
+    <string name="apply_type">申请类型</string>
+    <string name="refund_only">仅退款</string>
+    <string name="reason_apply">申请原因</string>
+    <string name="reason_apply_dot">申请原因:</string>
+    <string name="please_select">请选择</string>
+    <string name="application_amount">申请金额</string>
+    <string name="application_amount_dot">申请金额:</string>
+    <string name="contact_number">联系电话</string>
+    <string name="contact_number_dot">联系电话:</string>
+    <string name="edit_reason_refund_hint">必填，详细描述你所申诉的内容</string>
+    <string name="apply_description">申请说明</string>
+    <string name="personal_info">个人信息</string>
+    <string name="not_filled_in">未填写</string>
+    <string name="birthday">出生日期</string>
+    <string name="gender">性别</string>
+    <string name="select_gender">选择性别</string>
+    <string name="nickname">昵称</string>
+    <string name="modify_nickname">修改昵称</string>
+    <string name="confirm">确认</string>
+    <string name="determine">确定</string>
+    <string name="view_detail">详细信息</string>
+    <string name="transaction_closure">交易关闭</string>
+    <string name="transaction_closure_notify">该订单已关闭，可以重新下单</string>
+    <string name="receiving_info">收货信息:</string>
+    <string name="successful_trade">交易成功</string>
+    <string name="successful_trade_notify">该订单已完成，欢迎下次购买</string>
+    <string name="more_pay_method">更多支付方式</string>
+    <string name="service_message">服务消息</string>
+    <string name="order_details">订单详情</string>
+    <string name="please_add_receiving_address">请添加收货地址</string>
+    <string name="sum">合计：</string>
+    <string name="total">合计</string>
+    <string name="freight">运费</string>
+    <string name="freight_dot">运费:</string>
+    <string name="distribution_service">配送方式</string>
+    <string name="parcel_post">包邮</string>
+    <string name="store_details">店铺详情</string>
+    <string name="receiving_address">收货地址</string>
+    <string name="consignee">收货人</string>
+    <string name="fill_in_the_name_of_consignee">请填写收货人姓名</string>
+    <string name="mister">先生</string>
+    <string name="lady">女士</string>
+    <string name="please_fill_in_the_phone_number">请填写收货人手机号</string>
+    <string name="select_province_city_district">请选择所在省份、城市、区县</string>
+    <string name="detailed_address">详细地址</string>
+    <string name="please_fill_in_the_detailed_address">请填写详细地址，例如3号楼2单元105</string>
+    <string name="default_detailed_address">默认详细地址</string>
+    <string name="return_refund">退货退款</string>
+    <string name="reputable_merchants_paid_deposit">信誉商家 · 已缴纳保证金</string>
+    <string name="product_parameters">规格参数</string>
+    <string name="stock">库存 :</string>
+    <string name="be_paid">待支付</string>
+    <string name="be_shipped">待发货</string>
+    <string name="pending_delivery">待收货</string>
+    <string name="be_complete">已完成</string>
+    <string name="be_refund">交易关闭</string>
+    <string name="real_payment">实付款:</string>
+    <string name="delete_order">删除订单</string>
+    <string name="buy_again">再次购买</string>
+    <string name="change_address">修改地址</string>
+    <string name="payment">付款</string>
+    <string name="cancel_order">取消订单</string>
+    <string name="news">消息</string>
+    <string name="enter_chat_information">输入聊天信息</string>
+    <string name="read">已读</string>
+    <string name="unread">未读</string>
+    <string name="product_is_not_found">没有找到你要找的商品哦~</string>
+    <string name="cancel_this_order">取消此订单</string>
+    <string name="delete_this_record">删除此记录</string>
+    <string name="delete_this_order">删除此订单</string>
+    <string name="cannot_recover_after_cancel">注意: 取消后将无法恢复</string>
+    <string name="cannot_recover_after_delete">注意: 删除后将无法恢复</string>
+    <string name="are_you_sure_received_goods">确认收到商品了吗？</string>
+    <string name="to_protect_after_sales">为保障售后权益，请仔细检查后确认收货</string>
+    <string name="confirm_return_apply">确认提交退货申请？</string>
+    <string name="wait_patiently_merchant">提交后请耐心等待商家处理</string>
+    <string name="taking_wrong">拍错/不喜欢/效果不好</string>
+    <string name="material_does_not_match">材质与商品描叙不符</string>
+    <string name="size_does_not_match">大小尺寸与商品描叙不符</string>
+    <string name="sent_wrong_item">卖家发错货</string>
+    <string name="counterfeit_brand">假冒品牌</string>
+    <string name="small_pieces_broken_or_stained">收到商品少件/破损或污渍</string>
+    <string name="rough_flawed_workmanship">做工粗糙/有瑕疵</string>
+    <string name="manufacturing_date_does_not_match">生产日期/保质期描叙不符</string>
+    <string name="color_style_does_not_match">颜色/款式/描叙不符</string>
+    <string name="purchase_quantity">购买数量</string>
+    <string name="quantity">数量</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="shop">商铺</string>
+    <string name="account_settings">账户设置</string>
+    <string name="user_name">用户名称</string>
+    <string name="feedback">意见反馈</string>
+    <string name="feedback_suggestions">反馈与建议</string>
+    <string name="submit_feedback">提交反馈</string>
+    <string name="please_fill_phone_for_feedback">请填写手机号，方便我们联系您</string>
+    <string name="explain_for_feedback">对我们的商品、服务、APP有什么建议或者意见，请在这里告诉我们哟～</string>
+    <string name="clear_cache">清除本地缓存</string>
+    <string name="about_huawushang_app">关于华物商APP</string>
+    <string name="submit_order">提交订单</string>
+    <string name="add_shipping_address">添加新地址</string>
+    <string name="save">保存</string>
+    <string name="union_pay">银联支付</string>
+    <string name="collect">收藏</string>
+    <string name="to_pay">去支付</string>
+    <string-array name="refund_reason">
+        <item>不想要了</item>
+        <item>拍错/不喜欢/效果不好</item>
+        <item>材质与商品描叙不符</item>
+        <item>大小尺寸与商品描叙不符</item>
+        <item>卖家发错货</item>
+        <item>假冒品牌</item>
+        <item>收到商品少件/破损或污渍</item>
+        <item>做工粗糙/有瑕疵</item>
+        <item>生产日期/保质期描叙不符</item>
+        <item>颜色/款式/描叙不符</item>
+        <item>不想要了</item>
+        <item>拍错/不喜欢/效果不好</item>
+        <item>材质与商品描叙不符</item>
+        <item>大小尺寸与商品描叙不符</item>
+        <item>卖家发错货</item>
+        <item>假冒品牌</item>
+        <item>收到商品少件/破损或污渍</item>
+        <item>做工粗糙/有瑕疵</item>
+        <item>生产日期/保质期描叙不符</item>
+        <item>颜色/款式/描叙不符</item>
+
+    </string-array>
+    <string-array name="refund_type">
+        <item>退货退款</item>
+        <item>仅退款</item>
+        <item>退货退款</item>
+        <item>仅退款</item>
+    </string-array>
+    <string-array name="receiving_status">
+        <item>未收货</item>
+        <item>已收货</item>
+        <item>未收货</item>
+        <item>已收货</item>
+    </string-array>
+
+    <string-array name="refund_money_type">
+        <item>原支付方式返还</item>
+        <item>支付宝支付</item>
+        <item>微信支付</item>
+        <item>原支付方式返还</item>
+        <item>支付宝支付</item>
+        <item>微信支付</item>
+    </string-array>
+
+    <string name="take_a_picture">拍照</string>
+    <string name="from_gallery">相册</string>
+    <string name="invoice">发票抬头</string>
+    <string name="agreement">华物商用户注册协议</string>
+    <string name="privacy">华物商隐私政策</string>
+    <string name="naming_rules">4-20个字符，可由中英文、数字、“_”、“-”组成</string>
+    <string name="amount_due_for_order">订单应付金额</string>
+    <string name="goto_home">去首页逛逛</string>
+    <string name="buy_now">立即购买</string>
+    <string name="add_to_shopping_cart">加入购物车</string>
+    <string name="default_address">默认</string>
+    <string name="successfully_modified">修改成功</string>
+    <string name="no_shipping_address">您当前还没有收货地址</string>
+    <string name="new_address">新建地址</string>
+    <string name="delete">删除</string>
+    <string name="set_default_address">设置默认地址</string>
+    <string name="save_changes">保存修改</string>
+    <string name="new_shipping_address">新增收货地址</string>
+    <string name="edit_address">编辑地址</string>
+    <string name="kind_tips">温馨提示</string>
+    <string name="want_to_delete_change_address">是否确认删除改地址</string>
+    <string name="confirm_deletion">确认删除</string>
+    <string name="contact_sellor">联系卖家</string>
+    <string name="not_have_related_orders">您还没有相关的订单</string>
+    <string name="confirm_the_receipt">确认收货</string>
+    <string name="closed">已关闭</string>
+    <string name="can_be_modified">可修改，与客服自行协商</string>
+    <string name="after_sales_details">售后/退货详情</string>
+    <string name="application_has_been_rejected">拒绝原因：未上传有效证明，申请已拒绝</string>
+    <string name="merchant_refuses">商家拒绝</string>
+    <string name="refund_has_been_sent_back">退款已远路返回至支付账户</string>
+    <string name="reputable_seller">信誉卖家</string>
+    <string name="deposit_paid">已缴纳保证金</string>
+    <string name="please_select_shipping_address">请选择送货地址。</string>
+    <string name="confirm_submission">确认提交</string>
+    <string name="failed_submit">提交申请失败.</string>
+    <string name="specification">规格</string>
+    <string name="security">安全保障</string>
+    <string name="fast_delivery">快速发货</string>
+    <string name="product_details">商品详情</string>
+    <string name="feedback_submit_success">反馈提交成功.</string>
+    <string name="move_to_favorites">移入收藏</string>
+    <string name="already_added">它已经被添加了。</string>
+    <string name="input_quantity">输入数量</string>
+    <string name="notify_amount">可购买的最大数量 :</string>
+    <string name="clear_local_cache">清除本地缓存</string>
+    <string name="want_to_clear">是否确实要清除本地缓存？</string>
+    <string name="cache_clear_success">缓存清除成功</string>
+    <string name="order_tracking">订单跟踪</string>
+    <string name="shipped">已发货</string>
+    <string name="in_transit">运输中</string>
+    <string name="dispatching">派件中</string>
+    <string name="received">已签收</string>
+    <string name="non_refundable">此产品不可退款。</string>
+    <!--<string name=""></string>-->
 </resources>
 

@@ -1,30 +1,243 @@
 package com.hws.hwsappandroid.ui.me.main;
 
-import androidx.arch.core.util.Function;
+import android.os.Handler;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-public class OrderViewModel extends ViewModel {
+import com.hws.hwsappandroid.api.APIManager;
+import com.hws.hwsappandroid.model.GoodOfShoppingCart;
+import com.hws.hwsappandroid.model.MyOrderModel;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
-        @Override
-        public String apply(Integer input) {
-            return "Hello world from section: " + input;
-        }
-    });
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
+public class OrderViewModel extends ViewModel {
+    private static String keyword = "";
+    private boolean isLoading = false;
+    private final MutableLiveData<ArrayList<MyOrderModel>> MyOrders = new MutableLiveData<>();
+
+    public LiveData<ArrayList<MyOrderModel>> getMyOrders() {  return MyOrders;   }
+
+    private int mIndex;
+
+    public int status;
+
+    public static void setKeyword(String word) {
+        keyword = word;
+    }
 
     public void setIndex(int index) {
-        mIndex.setValue(index);
+//        mIndex.setValue(index);
+        mIndex = index;
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void loadData() {
+        if (isLoading) return;
+        isLoading = true;
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+//                mIndex = 2;
+                JSONObject jsonParams = new JSONObject();
+                try {
+                    if (keyword != null && keyword.length() > 0) {
+                        jsonParams.put("goodsName", keyword);
+                    }
+//                    jsonParams.put("pageNum", 1);
+//                    jsonParams.put("pageSize", "20");
+                    if(mIndex == 1) {
+                        jsonParams.put("orderStatus", "-1");
+                    }else if(mIndex == 2){
+                        jsonParams.put("orderStatus", "0");
+                    }else {
+                        jsonParams.put("orderStatus", mIndex);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String url = "/bizOrder/queryMyOrder";
+                APIManager.postJson(url, jsonParams, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            if (response.getBoolean("status")) {
+                                JSONObject obj = response.getJSONObject("data");
+                                JSONArray list = obj.getJSONArray("list");
+                                ArrayList<MyOrderModel> myOrders = new ArrayList<>();
+                                for (int i=0; i<list.length(); i++) {
+                                    obj = list.getJSONObject(i);
+                                    MyOrderModel myOrder = new MyOrderModel();
+                                    myOrder.bizClientId = obj.optString("bizClientId", "");
+                                    myOrder.bizUserId = obj.optString("bizClientId", "");
+                                    myOrder.isChargeback = obj.optInt("isChargeback", 0);
+                                    myOrder.orderTime = obj.optString("orderTime", "");
+                                    myOrder.orderCode = obj.optString("orderCode", "");
+                                    myOrder.orderStatus = obj.optInt("orderStatus", 0);
+                                    myOrder.pkId = obj.optString("pkId", "");
+                                    myOrder.shopId = obj.optString("shopId", "");
+                                    myOrder.shopName = obj.optString("shopName", "");
+                                    myOrder.shippingFee = obj.optString("shippingFee", "");
+                                    myOrder.totalMoney = obj.optString("totalMoney", "");
+
+                                    JSONArray myGoodsListJson = obj.getJSONArray("myGoodsList");
+                                    ArrayList<GoodOfShoppingCart> GoodsList = new ArrayList<>();
+                                    for (int j=0; j<myGoodsListJson.length(); j++) {
+                                        JSONObject myGoodsJson = myGoodsListJson.getJSONObject(j);
+                                        GoodOfShoppingCart myGoods = new GoodOfShoppingCart();
+                                        myGoods.goodsId = myGoodsJson.optString("goodsId", "");
+                                        myGoods.goodsName = myGoodsJson.optString("goodsName", "");
+                                        myGoods.goodsNum = myGoodsJson.optInt("goodsNum", 0);
+                                        myGoods.goodsPic = myGoodsJson.optString("goodsPic", "");
+                                        myGoods.goodsPrice = myGoodsJson.optString("goodsPrice", "");
+                                        myGoods.goodsSpec = myGoodsJson.optString("goodsSpec", "");
+                                        myGoods.goodsSpecId = myGoodsJson.optString("goodsSpecId", "");
+                                        myGoods.goodsStatus = myGoodsJson.optInt("refundStatus", 0);
+
+
+                                        GoodsList.add(myGoods);
+                                    }
+                                    myOrder.myGoodsList = GoodsList;
+                                    myOrders.add(myOrder);
+                                }
+                                MyOrders.postValue(myOrders);
+
+                            } else {
+                                Log.d("Home request", response.toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        isLoading = false;
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.d("Home request", ""+statusCode);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                        isLoading = false;
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.d("Home request", responseString);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_db), Toast.LENGTH_SHORT).show();
+                        isLoading = false;
+                    }
+                });
+            }
+        });
+    }
+
+    public void loadData(String goodsName, int index) {
+        if (isLoading) return;
+        isLoading = true;
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+//                mIndex = 2;
+                JSONObject jsonParams = new JSONObject();
+                try {
+//                    jsonParams.put("pageNum", 1);
+//                    jsonParams.put("pageSize", "20");
+                    jsonParams.put("goodsName", goodsName);
+                    if(index == 1) {
+                        jsonParams.put("orderStatus", "-1");
+                    }else if(index == 2){
+                        jsonParams.put("orderStatus", "0");
+                    }else {
+                        jsonParams.put("orderStatus", index);
+                    }
+                    jsonParams.put("orderStatus", -1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String url = "/bizOrder/queryMyOrder";
+                APIManager.postJson(url, jsonParams, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            if (response.getBoolean("status")) {
+                                JSONObject obj = response.getJSONObject("data");
+                                JSONArray list = obj.getJSONArray("list");
+                                ArrayList<MyOrderModel> myOrders = new ArrayList<>();
+                                for (int i=0; i<list.length(); i++) {
+                                    obj = list.getJSONObject(i);
+                                    MyOrderModel myOrder = new MyOrderModel();
+                                    myOrder.bizClientId = obj.optString("bizClientId", "");
+                                    myOrder.bizUserId = obj.optString("bizClientId", "");
+                                    myOrder.isChargeback = obj.optInt("isChargeback", 0);
+                                    myOrder.orderTime = obj.optString("orderTime", "");
+                                    myOrder.orderCode = obj.optString("orderCode", "");
+                                    myOrder.orderStatus = obj.optInt("orderStatus", 0);
+                                    myOrder.pkId = obj.optString("pkId", "");
+                                    myOrder.shopId = obj.optString("shopId", "");
+                                    myOrder.shopName = obj.optString("shopName", "");
+                                    myOrder.shippingFee = obj.optString("shippingFee", "");
+                                    myOrder.totalMoney = obj.optString("totalMoney", "");
+
+                                    JSONArray myGoodsListJson = obj.getJSONArray("myGoodsList");
+                                    ArrayList<GoodOfShoppingCart> GoodsList = new ArrayList<>();
+                                    for (int j=0; j<myGoodsListJson.length(); j++) {
+                                        JSONObject myGoodsJson = myGoodsListJson.getJSONObject(j);
+                                        GoodOfShoppingCart myGoods = new GoodOfShoppingCart();
+                                        myGoods.goodsId = myGoodsJson.optString("goodsId", "");
+                                        myGoods.goodsName = myGoodsJson.optString("goodsName", "");
+                                        myGoods.goodsNum = myGoodsJson.optInt("goodsNum", 0);
+                                        myGoods.goodsPic = myGoodsJson.optString("goodsPic", "");
+                                        myGoods.goodsPrice = myGoodsJson.optString("goodsPrice", "");
+                                        myGoods.goodsSpec = myGoodsJson.optString("goodsSpec", "");
+                                        myGoods.goodsSpecId = myGoodsJson.optString("goodsSpecId", "");
+                                        myGoods.goodsStatus = myGoodsJson.optInt("refundStatus", 0);
+
+                                        GoodsList.add(myGoods);
+                                    }
+                                    myOrder.myGoodsList = GoodsList;
+                                    myOrders.add(myOrder);
+                                }
+                                MyOrders.postValue(myOrders);
+
+                            } else {
+                                Log.d("Home request", response.toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        isLoading = false;
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.d("Home request", ""+statusCode);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                        isLoading = false;
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.d("Home request", responseString);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(mContext, res.getString(R.string.error_db), Toast.LENGTH_SHORT).show();
+                        isLoading = false;
+                    }
+                });
+            }
+        });
     }
 }
 
-class Order {
 
-}
+
