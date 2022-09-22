@@ -138,7 +138,7 @@ public class ShoppingCartAssist extends AppCompatActivity implements ItemClickLi
 
         model.getSelectedGoodsNum().observe(this, goodsNum -> {
             MyGlobals.getInstance().set_Total_num(goodsNum);
-            toSettleBtn.setText("去结算(" + goodsNum + ")");
+            toSettleBtn.setText(getResources().getString(R.string.to_settle) + "(" + goodsNum + ")");
         });
 
         model.getSelectedTotalPrice().observe(this, t_Price -> {

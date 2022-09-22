@@ -287,4 +287,15 @@
     <string name="received">접수됨</string>
     <string name="dispatching">파견됨</string>
     <string name="non_refundable">이 상품은 환불이 불가합니다.</string>
+    <string name="order_no">주문번호</string>
+    <string name="release_to_refresh">새로고침하려면 손을 떼십시오...</string>
+    <string name="items_for_you">당신을 위한 추천 아이템</string>
+    <string name="street_view_goods">스트리트 뷰 상품</string>
+    <string name="cart_is_empty">장바구니가 비어 있습니다.</string>
+    <string name="add_to_your_cart">마음에 드는 것을 골라 장바구니에 담기</string>
+    <string name="select_all">모두 선택</string>
+    <string name="excluding_freight">운송비 등을 포함하지 않고 실금액은 결산 페이지를 따릅니다</string>
+    <string name="to_settle">계산</string>
+    <string name="is_currently_unavailable">이 제품은 현재 사용할 수 없습니다</string>
+    <string name="customer">상담</string>
 </resources>

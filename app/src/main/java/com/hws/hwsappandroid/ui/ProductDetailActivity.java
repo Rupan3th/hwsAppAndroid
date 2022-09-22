@@ -518,6 +518,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
                 public void onClick(View view) {
                     product_stock = goodsSpecList.get(position).stock;
                     Item_inventory.setText(String.valueOf(goodsSpecList.get(position).stock));
+                    tvItemDetail.setText(goodsSpecList.get(position).goodsSpec);
                     confirmBtn.setEnabled(false);
 
                     if(product_stock>0){

@@ -30,6 +30,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -69,6 +70,8 @@ public class ShoppingCartFragment extends Fragment implements ItemClickListener 
     ShoppingCartListAdapter adapter;
     private RecyclerViewAdapter mAdapter;
     ArrayList<UserCartItem> mShoppingCart = new ArrayList<>();
+
+    LinearLayout cartIsEmpty, bottomCtr, selectLine;
     TextView totalPrice, total_num;
     Button toSettleBtn;
 
@@ -113,6 +116,10 @@ public class ShoppingCartFragment extends Fragment implements ItemClickListener 
             }
         });
 
+        cartIsEmpty = binding.cartIsEmpty;
+        bottomCtr = binding.bottomCtr;
+        selectLine = binding.selectLine;
+
         Button gotoHome = binding.gotoHome;
         gotoHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +150,7 @@ public class ShoppingCartFragment extends Fragment implements ItemClickListener 
 
         model.getSelectedGoodsNum().observe(this, goodsNum -> {
             MyGlobals.getInstance().set_Total_num(goodsNum);
-            toSettleBtn.setText("去结算(" + goodsNum + ")");
+            toSettleBtn.setText(getResources().getString(R.string.to_settle) + "(" + goodsNum + ")");
         });
 
         model.getSelectedTotalPrice().observe(this, t_Price -> {
@@ -208,13 +215,13 @@ public class ShoppingCartFragment extends Fragment implements ItemClickListener 
         if(NetworkCheck()) model.loadData();
         model.getMyCart().observe(getViewLifecycleOwner(), mCarts -> {
             if(mCarts.size()==0){
-                binding.cartIsEmpty.setVisibility(View.VISIBLE);
-                binding.bottomCtr.setVisibility(View.GONE);
-                binding.selectLine.setVisibility(View.GONE);
+                cartIsEmpty.setVisibility(View.VISIBLE);
+                bottomCtr.setVisibility(View.GONE);
+                selectLine.setVisibility(View.GONE);
             }else {
-                binding.bottomCtr.setVisibility(View.VISIBLE);
-                binding.selectLine.setVisibility(View.VISIBLE);
-                binding.cartIsEmpty.setVisibility(View.GONE);
+                bottomCtr.setVisibility(View.VISIBLE);
+                selectLine.setVisibility(View.VISIBLE);
+                cartIsEmpty.setVisibility(View.GONE);
             }
 
             adapter.setData(mCarts);

@@ -62,9 +62,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:scaleType="fitCenter"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         app:srcCompat="@drawable/login_back"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <LinearLayout
         android:id="@+id/inputArea"

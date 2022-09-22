@@ -146,7 +146,7 @@ public class ShoppingCartListAdapter extends RecyclerView.Adapter<ShoppingCartLi
                     tPrice.setText(String.format("%.2f", MyGlobals.getInstance().getTotal_price()));
 
                     Button toSettleBtn = (Button) v.getRootView().findViewById(R.id.toSettleBtn);
-                    toSettleBtn.setText("去结算(" + MyGlobals.getInstance().getTotal_num() + ")");
+                    toSettleBtn.setText(context.getResources().getString(R.string.to_settle) + "(" + MyGlobals.getInstance().getTotal_num() + ")");
                 } else {
                     setData(models);
                     mShoppingCartModel.updateCheckStatus(pkIds, viewHolder.selectBtn.isChecked());
@@ -154,25 +154,6 @@ public class ShoppingCartListAdapter extends RecyclerView.Adapter<ShoppingCartLi
             }
         });
 
-        //swipe menu create
-//        swipeController = new SwipeController(new SwipeControllerActions() {
-//            @Override
-//            public void onRightClicked(int position) {
-//                adapter.arrayList.remove(position);
-//                adapter.notifyItemRemoved(position);
-//                adapter.notifyItemRangeChanged(position, adapter.getItemCount());
-//                Toast.makeText(context, "You clicked "+position, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-//        itemTouchhelper.attachToRecyclerView(viewHolder.itemRecyclerView);
-//
-//        viewHolder.itemRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-//            @Override
-//            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-//                swipeController.onDraw(c, "删除");
-//            }
-//        });
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

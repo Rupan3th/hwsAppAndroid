@@ -58,7 +58,7 @@
         android:gravity="center_horizontal"
         android:textColor="@color/text_title"
         android:paddingTop="44dp"
-        android:text="望街好物"
+        android:text="@string/street_view_goods"
         android:textSize="16sp"
         android:visibility="invisible"/>
 

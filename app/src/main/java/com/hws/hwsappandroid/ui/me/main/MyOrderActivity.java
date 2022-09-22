@@ -76,7 +76,7 @@ public class MyOrderActivity extends AppCompatActivity {
             TabLayout.Tab tab = tabs.getTabAt(i);
             tab.setCustomView(createCustomTabView(getResources().getString(TAB_TITLES[i]), 15, R.color.text_soft));
             if(i==0){
-                setTabTextSize(tab, 17, R.color.purple_500, true);
+                setTabTextSize(tab, 16, R.color.purple_500, true);
                 setTabImage(tab, View.VISIBLE);
             }
         }
@@ -84,7 +84,7 @@ public class MyOrderActivity extends AppCompatActivity {
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                setTabTextSize(tab, 17, R.color.purple_500, true);
+                setTabTextSize(tab, 16, R.color.purple_500, true);
                 setTabImage(tab, View.VISIBLE);
             }
             @Override

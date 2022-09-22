@@ -50,7 +50,7 @@
                     android:layout_height="18dp"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="9dp"
-                    android:text="松开刷新…"
+                    android:text="@string/release_to_refresh"
                     android:textColor="@color/purple_500"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -374,7 +374,7 @@
                                     android:id="@+id/textView3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="为你推荐精选好物"
+                                    android:text="@string/items_for_you"
                                     android:textColor="#999999"
                                     android:textSize="11sp"/>
                             </LinearLayout>

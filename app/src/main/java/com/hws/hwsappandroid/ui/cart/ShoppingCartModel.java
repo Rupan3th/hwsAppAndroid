@@ -101,6 +101,7 @@ public class ShoppingCartModel extends ViewModel {
                                         good.userId = goodJson.optString("userId", "");
                                         good.stock = goodJson.optString("stock", "");
                                         good.selected = good.isCheck.equals("1");
+                                        good.canFavorite = goodJson.optString("canFavorite", "no");
                                         goodsPerShop.add(good);
 
                                         allSelected = allSelected && good.selected;

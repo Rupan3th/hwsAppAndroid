@@ -80,13 +80,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/tvItemDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="9dp"
                             android:textColor="#999999"
                             android:textSize="11sp"
-                            android:text="DARLING 02动漫贴纸墙贴二次元机箱装饰贴画旅行箱 " />
+                            android:text="已选择" />
+                        <TextView
+                            android:id="@+id/tvItemDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:textColor="#999999"
+                            android:textSize="11sp"
+                            android:text="二次元机箱装饰贴画旅行箱 " />
                     </LinearLayout>
 
                     <View
@@ -220,6 +227,6 @@
         android:layout_marginTop="36dp"
         android:enabled="false"
         android:textSize="14sp"
-        android:text="确定" />
+        android:text="@string/determine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

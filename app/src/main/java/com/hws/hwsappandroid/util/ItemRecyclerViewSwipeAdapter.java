@@ -1,5 +1,6 @@
 package com.hws.hwsappandroid.util;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -188,7 +190,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
             @Override
             public void onClick(View v) {
                 if(arrayList.get(itemIndex).isOnSale == 0){
-                    Toast.makeText(context, "该产品目前无法提供服务。", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.is_currently_unavailable), Toast.LENGTH_SHORT).show();
                 }else {
                     Amount = arrayList.get(itemIndex).goodsNum + 1;
                     holder.itemAmount.setText(String.valueOf(Amount));
@@ -204,7 +206,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                             total_num = MyGlobals.getInstance().getTotal_num() + 1;
                             MyGlobals.getInstance().set_Total_num(total_num);
                             Button toSettleBtn = (Button) v.getRootView().findViewById(R.id.toSettleBtn);
-                            toSettleBtn.setText("去结算(" + MyGlobals.getInstance().getTotal_num() + ")");
+                            toSettleBtn.setText(context.getResources().getString(R.string.to_settle) + "(" + MyGlobals.getInstance().getTotal_num() + ")");
                         } else {
                             mItemUpdatedlistener.OnNumberChanged(arrayList.get(itemIndex).pkId, Amount);
                         }
@@ -220,7 +222,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
             @Override
             public void onClick(View v) {
                 if(arrayList.get(itemIndex).isOnSale == 0){
-                    Toast.makeText(context, "该产品目前无法提供服务。", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.is_currently_unavailable), Toast.LENGTH_SHORT).show();
                 }else {
                     if(arrayList.get(itemIndex).goodsNum > 1){
                         Amount = arrayList.get(itemIndex).goodsNum-1;
@@ -237,7 +239,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                                 total_num = MyGlobals.getInstance().getTotal_num() - 1;
                                 MyGlobals.getInstance().set_Total_num(total_num);
                                 Button toSettleBtn = (Button) v.getRootView().findViewById(R.id.toSettleBtn);
-                                toSettleBtn.setText("去结算(" + MyGlobals.getInstance().getTotal_num() + ")");
+                                toSettleBtn.setText(context.getResources().getString(R.string.to_settle) + "(" + MyGlobals.getInstance().getTotal_num() + ")");
                             } else {
                                 mItemUpdatedlistener.OnNumberChanged(arrayList.get(itemIndex).pkId, Amount);
                             }
@@ -268,7 +270,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                         total_num = MyGlobals.getInstance().getTotal_num() + arrayList.get(itemIndex).goodsNum;
                         MyGlobals.getInstance().set_Total_num(total_num);
                         Button toSettleBtn = (Button) v.getRootView().findViewById(R.id.toSettleBtn);
-                        toSettleBtn.setText("去结算(" + MyGlobals.getInstance().getTotal_num() + ")");
+                        toSettleBtn.setText(context.getResources().getString(R.string.to_settle) + "(" + MyGlobals.getInstance().getTotal_num() + ")");
                     } else {
 //                    holder.itemRadioBtn.setChecked(true);
 //                    arrayList.get(itemIndex).isCheck = "2";
@@ -277,7 +279,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                         total_num = MyGlobals.getInstance().getTotal_num() - arrayList.get(itemIndex).goodsNum;
                         MyGlobals.getInstance().set_Total_num(total_num);
                         Button toSettleBtn = (Button) v.getRootView().findViewById(R.id.toSettleBtn);
-                        toSettleBtn.setText("去结算(" + MyGlobals.getInstance().getTotal_num() + ")");
+                        toSettleBtn.setText(context.getResources().getString(R.string.to_settle) + "(" + MyGlobals.getInstance().getTotal_num() + ")");
                     }
                     tPrice.setText(String.format("%.2f", MyGlobals.getInstance().getTotal_price()));
                 } else {
@@ -297,7 +299,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                 MyGlobals.getInstance().setNotify_cart(cart_contentsNum);
                 MA.refresh_badge();
 
-                delFromCart(arrayList.get(itemIndex).pkId);
+                delFromCart(arrayList.get(itemIndex).pkId, itemIndex);
                 MyGlobals.getInstance().delMyShoppingCartItem(sectionIndex, itemIndex);
 //                arrayList.remove(itemIndex);
                 setData(arrayList);
@@ -308,17 +310,28 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                     rsc.setAdapter(scAdapter);
                     MyGlobals.getInstance().delMyShoppingCartSection(sectionIndex);
                     scAdapter.setData(MyGlobals.getInstance().getMyShoppingCart());
+
+                    LinearLayout no_result_area = ((Activity) context).findViewById(R.id.cart_is_empty);
+                    no_result_area.setVisibility(View.VISIBLE);
+                    LinearLayout select_line = ((Activity) context).findViewById(R.id.select_line);
+                    select_line.setVisibility(View.GONE);
+                    LinearLayout bottomCtr = ((Activity) context).findViewById(R.id.bottomCtr);
+                    bottomCtr.setVisibility(View.GONE);
                 }
 
             }
         });
 
-        holder.favorite_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFavorite(itemPkId, holder);
-            }
-        });
+        if(arrayList.get(itemIndex).canFavorite.equals("yes")){
+            holder.favorite_button.setBackgroundColor(context.getResources().getColor(R.color.goto_favorite_btn));
+            holder.favorite_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setFavorite(itemPkId, holder);
+                }
+            });
+        }else holder.favorite_button.setBackgroundColor(context.getResources().getColor(R.color.text_hint));
+
 
         holder.itemAmount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -334,7 +347,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
         return arrayList.size();
     }
 
-    public void delFromCart(String pkId) {
+    public void delFromCart(String pkId, int pos) {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
@@ -347,6 +360,9 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             if (response.getBoolean("status")) {
+//                                arrayList.remove(pos);
+//                                notifyItemRemoved(pos);
+//                                notifyItemRangeChanged(pos, getItemCount());
                                 progressDialog.dismiss();
                             } else {
                                 Log.d("Home request", response.toString());
@@ -438,13 +454,14 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                         try {
                             if (response.getBoolean("status")) {
 //                                String r_pkId = response.optString("data", "");
+                                holder.favorite_button.setBackgroundColor(context.getResources().getColor(R.color.text_hint));
                                 Intent i = new Intent(context, MyCollectionActivity.class);
                                 context.startActivity(i);
                                 Toast.makeText(context, context.getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
 
                             } else {
-                                Log.d("Home request", response.toString());
-                                holder.favorite_button.setBackgroundColor(context.getResources().getColor(R.color.text_hint));
+//                                Log.d("Home request", response.toString());
+//                                holder.favorite_button.setBackgroundColor(context.getResources().getColor(R.color.text_hint));
                                 Toast.makeText(context, context.getResources().getString(R.string.already_added), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -573,7 +590,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                 try {
                     Amount = Integer.parseInt(edit_amount.getText().toString());
                     if(arrayList.get(pos).isOnSale == 0){
-                        Toast.makeText(context, "该产品目前无法提供服务。", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getResources().getString(R.string.is_currently_unavailable), Toast.LENGTH_SHORT).show();
                         SheetEditDialog.dismiss();
                     }else {
                         if(Amount > 0 && Amount <= product_stock){
@@ -606,7 +623,7 @@ public class ItemRecyclerViewSwipeAdapter extends RecyclerView.Adapter<ItemRecyc
                                     total_num = total_num + Amount - initItemNum;
                                     MyGlobals.getInstance().set_Total_num(total_num);
                                     Button toSettleBtn = (Button) view.getRootView().findViewById(R.id.toSettleBtn);
-                                    toSettleBtn.setText("去结算(" + MyGlobals.getInstance().getTotal_num() + ")");
+                                    toSettleBtn.setText(context.getResources().getString(R.string.to_settle) + "(" + MyGlobals.getInstance().getTotal_num() + ")");
                                 } else {
                                     mItemUpdatedlistener.OnNumberChanged(arrayList.get(pos).pkId, Amount);
                                 }

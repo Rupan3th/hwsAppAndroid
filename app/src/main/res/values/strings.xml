@@ -8,7 +8,7 @@
     <string name="title_me">我的</string>
     <!-- Strings used for search -->
     <string name="search_history">搜索历史</string>
-    <string name="clear_history">清除历史</string>
+    <string name="clear_history">清除记录</string>
     <string name="no_matching_items_found">没有找到匹配的商品</string>
     <string name="please_select_lang">请选择语言</string>
     <string name="please_select_lang_kr">언어를 선택하십시오</string>
@@ -337,6 +337,18 @@
     <string name="dispatching">派件中</string>
     <string name="received">已签收</string>
     <string name="non_refundable">此产品不可退款。</string>
+    <string name="order_no">订单编号</string>
+    <string name="release_to_refresh">松开刷新…</string>
+    <string name="items_for_you">为你推荐精选好物</string>
+    <string name="street_view_goods">望街好物</string>
+    <string name="cart_is_empty">购物车竟然是空的</string>
+    <string name="add_to_your_cart">挑点喜欢的装进购物车</string>
+    <string name="select_all">全选</string>
+    <string name="excluding_freight">不含运费等，实付金额以结算页面为准</string>
+    <string name="to_settle">去结算</string>
+    <string name="is_currently_unavailable">该产品目前无法提供服务</string>
+    <string name="customer">客服</string>
+    <!--<string name=""></string>-->
     <!--<string name=""></string>-->
 </resources>
 

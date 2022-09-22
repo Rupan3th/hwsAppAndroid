@@ -18,9 +18,9 @@
     <string name="koreans">조선어</string>
     <string name="home_top_description">Best domestic products</string>
     <string name="message">information</string>
-    <string name="search">search</string>
+    <string name="search">Search</string>
     <string name="goods">product</string>
-    <string name="search_goods">Search for products</string>
+    <string name="search_goods">Search Goods</string>
     <string name="all_goods">All products</string>
     <string name="preferred_goods">Preferred product</string>
     <string name="error_message">Network Error. please try again.</string>
@@ -287,4 +287,15 @@
     <string name="dispatching">Dispatch</string>
     <string name="received">Received</string>
     <string name="non_refundable">This product is non-refundable.</string>
+    <string name="order_no">Order No</string>
+    <string name="release_to_refresh">Release to refresh...</string>
+    <string name="items_for_you">Recommended items for you</string>
+    <string name="street_view_goods">Street View Goods</string>
+    <string name="cart_is_empty">The shopping cart is empty</string>
+    <string name="add_to_your_cart">Pick something you like and add it to your cart</string>
+    <string name="select_all">Select all</string>
+    <string name="excluding_freight">Excluding freight, the paid amount is subject to the settlement page</string>
+    <string name="to_settle">Settle</string>
+    <string name="is_currently_unavailable">This product is currently unavailable</string>
+    <string name="customer">customer</string>
 </resources>

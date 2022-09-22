@@ -20,5 +20,6 @@ public class GoodOfShoppingCart {
     public String userId;
     public String stock;
     public int goodsStatus;
+    public String canFavorite;
     public boolean selected = false;
 }

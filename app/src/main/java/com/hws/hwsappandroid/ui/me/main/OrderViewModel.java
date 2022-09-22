@@ -1,6 +1,7 @@
 package com.hws.hwsappandroid.ui.me.main;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -50,7 +51,9 @@ public class OrderViewModel extends ViewModel {
                 JSONObject jsonParams = new JSONObject();
                 try {
                     if (keyword != null && keyword.length() > 0) {
-                        jsonParams.put("goodsName", keyword);
+                        if(isOrderNO(keyword))  jsonParams.put("orderCode", keyword);
+                        else jsonParams.put("goodsName", keyword);
+
                     }
 //                    jsonParams.put("pageNum", 1);
 //                    jsonParams.put("pageSize", "20");
@@ -140,7 +143,7 @@ public class OrderViewModel extends ViewModel {
         });
     }
 
-    public void loadData(String goodsName, int index) {
+    public void loadData(String keyword, int index) {
         if (isLoading) return;
         isLoading = true;
         new Handler().post(new Runnable() {
@@ -151,7 +154,8 @@ public class OrderViewModel extends ViewModel {
                 try {
 //                    jsonParams.put("pageNum", 1);
 //                    jsonParams.put("pageSize", "20");
-                    jsonParams.put("goodsName", goodsName);
+                    if(isOrderNO(keyword))  jsonParams.put("orderCode", keyword);
+                    else jsonParams.put("goodsName", keyword);
                     if(index == 1) {
                         jsonParams.put("orderStatus", "-1");
                     }else if(index == 2){
@@ -236,6 +240,19 @@ public class OrderViewModel extends ViewModel {
                 });
             }
         });
+    }
+
+    public static boolean isOrderNO(String word) {
+        /*
+         * 移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
+         * 联通：130、131、132、152、155、156、185、186 电信：133、153、180、189、（1349卫通）
+         * 总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
+         */
+        String NoRegex = "[D|:d][D|:d]\\d{3,15}";
+        if (TextUtils.isEmpty(word))
+            return false;
+        else
+            return word.matches(NoRegex);
     }
 }
 
