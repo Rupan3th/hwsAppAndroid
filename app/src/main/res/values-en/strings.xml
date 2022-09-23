@@ -298,4 +298,7 @@
     <string name="to_settle">Settle</string>
     <string name="is_currently_unavailable">This product is currently unavailable</string>
     <string name="customer">customer</string>
+    <string name="goods_sn">"No: "</string>
+    <string name="up_to_max">Up to purchase</string>
+    <string name="piece">piece</string>
 </resources>

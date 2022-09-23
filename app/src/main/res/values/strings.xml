@@ -348,6 +348,11 @@
     <string name="to_settle">去结算</string>
     <string name="is_currently_unavailable">该产品目前无法提供服务</string>
     <string name="customer">客服</string>
+    <string name="goods_sn">编号：</string>
+    <string name="up_to_max">最多可购买</string>
+    <string name="piece">件</string>
+    <!--<string name=""></string>-->
+    <!--<string name=""></string>-->
     <!--<string name=""></string>-->
     <!--<string name=""></string>-->
 </resources>

@@ -298,4 +298,7 @@
     <string name="to_settle">계산</string>
     <string name="is_currently_unavailable">이 제품은 현재 사용할 수 없습니다</string>
     <string name="customer">상담</string>
+    <string name="goods_sn">"번호: "</string>
+    <string name="up_to_max">최대구매가능</string>
+    <string name="piece">개</string>
 </resources>

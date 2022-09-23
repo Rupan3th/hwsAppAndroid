@@ -13,9 +13,12 @@ import com.hws.hwsappandroid.model.AddToCart;
 import com.hws.hwsappandroid.model.Good;
 import com.hws.hwsappandroid.model.GoodInfo;
 import com.hws.hwsappandroid.model.GoodsDetail;
+import com.hws.hwsappandroid.model.GoodsPrice;
 import com.hws.hwsappandroid.model.GoodsShop;
 import com.hws.hwsappandroid.model.GoodsSpec;
+import com.hws.hwsappandroid.model.GoodsSpecMap;
 import com.hws.hwsappandroid.model.Params;
+import com.hws.hwsappandroid.model.SpecInfo;
 import com.hws.hwsappandroid.model.UserCartItem;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -88,22 +91,40 @@ public class ProductDetailModel extends ViewModel {
                                 goodsShop.linkmanName = goodsShopJson.optString("linkmanName", "");
                                 goodsShop.linkmanPhone = goodsShopJson.optString("linkmanPhone", "");
                                 goodsShop.mainIndustry = goodsShopJson.optString("mainIndustry", "");
-                                goodsShop.modifyTime = goodsShopJson.optInt("modifyTime", 1);
+                                goodsShop.chMerchandiseNum = goodsShopJson.optInt("chMerchandiseNum", 0);
+                                goodsShop.chPutAwayNum = goodsShopJson.optInt("chPutAwayNum", 0);
+                                goodsShop.chSoldOutNum = goodsShopJson.optInt("chSoldOutNum", 0);
                                 goodsShop.operatorId = goodsShopJson.optString("operatorId", "");
                                 goodsShop.pkId = goodsShopJson.optString("pkId", "");
                                 goodsShop.province = goodsShopJson.optString("province", "");
                                 goodsShop.shopLogoPic = goodsShopJson.optString("shopLogoPic", "");
                                 goodsShop.shopName = goodsShopJson.optString("shopName", "");
 
-                                GoodInfo goods = new GoodInfo();
-                                goods.goodsImg = goodImages;
-                                goods.goodsShop = goodsShop;
-                                goods.canFavorite = obj.optBoolean("canFavorite", false);
+                                GoodInfo goodInfo = new GoodInfo();
+                                goodInfo.goodsImg = goodImages;
+                                goodInfo.goodsShop = goodsShop;
+                                goodInfo.canFavorite = obj.optBoolean("canFavorite", false);
+
+                                JSONArray attributeList = obj.getJSONArray("attributeList");
+                                ArrayList<String> mAttributeList = new ArrayList<>();
+                                for (int i=0; i<attributeList.length(); i++) {
+                                    String attribute = attributeList.getString(i);
+                                    mAttributeList.add(attribute);
+                                }
+                                goodInfo.attributeList = mAttributeList;
+
+                                JSONObject goodsPriceJson = obj.getJSONObject("goodsPrice");
+                                GoodsPrice goodsPrice = new GoodsPrice();
+                                goodsPrice.price = goodsPriceJson.optString("price", "");
+                                goodsPrice.goods_spec = goodsPriceJson.optString("goods_spec", "");
+                                goodInfo.goodsPrice = goodsPrice;
 
                                 JSONObject goodsJson = obj.getJSONObject("goods");
+                                Good goods = new Good();
                                 goods.gmtModified = goodsJson.optString("gmtModified", "");
                                 goods.pkId = goodsJson.optString("pkId", "");
                                 goods.goodsSn = goodsJson.optString("goodsSn", "");
+                                goods.price = obj.getJSONObject("goodsPrice").optString("price", "");
                                 goods.category2Id = goodsJson.optString("category2Id", "");
                                 goods.category1Id = goodsJson.optString("category1Id", "");
 
@@ -133,11 +154,14 @@ public class ProductDetailModel extends ViewModel {
                                 goods.isPreferred = goodsJson.optInt("isPreferred", 1);
                                 goods.gmtCreate = goodsJson.optString("gmtCreate", "");
                                 goods.bizClientId = goodsJson.optString("bizClientId", "");
+                                goods.goodsPreferredWeight = goodsJson.optInt("goodsPreferredWeight", 0);
                                 goods.shippinTempletId = goodsJson.optString("shippinTempletId", "");
                                 goods.onSaleTime = goodsJson.optString("onSaleTime", "");
                                 goods.auditTime = goodsJson.optString("auditTime", "");
                                 goods.isExeFromPos = goodsJson.optInt("isExeFromPos", 1);
-                                goods.auditStatus = goodsJson.optString("auditStatus", "");
+                                goods.auditStatus = goodsJson.optInt("auditStatus", 0);
+                                goods.isHot = goodsJson.optInt("isHot", 0);
+                                goods.streetSort = goodsJson.optInt("streetSort", 0);
 
                                 JSONArray goodsDetailListJson = goodsJson.getJSONArray("goodsDetail");
                                 ArrayList<GoodsDetail> goodsDetails = new ArrayList<>();
@@ -156,10 +180,38 @@ public class ProductDetailModel extends ViewModel {
                                 }
                                 goods.goodsDetail = goodsDetails;
 
-                                JSONArray goodsSpecListJson = obj.getJSONArray("goodsSpecList");
-                                ArrayList<GoodsSpec> goodsSpecList = new ArrayList<>();
-                                for (int i=0; i<goodsSpecListJson.length(); i++) {
-                                    JSONObject goodsSpecJson = goodsSpecListJson.getJSONObject(i);
+                                goodInfo.goods = goods;
+
+                                JSONObject specInfoMapJson = obj.getJSONObject("specInfoMap");
+                                SpecInfo specInfoMap = new SpecInfo();
+                                specInfoMap.goodsSpecName1 = specInfoMapJson.optString("goodsSpecName1", "");
+                                specInfoMap.goodsSpecName2 = specInfoMapJson.optString("goodsSpecName2", "");
+
+                                JSONArray goodsSpecValue1ListJson = specInfoMapJson.getJSONArray("goodsSpecValue1List");
+                                ArrayList<String> goodsSpecValue1List = new ArrayList<>();
+                                for (int i=0; i<goodsSpecValue1ListJson.length(); i++) {
+                                    String goodsSpecValue1 = goodsSpecValue1ListJson.getString(i);
+                                    goodsSpecValue1List.add(goodsSpecValue1);
+                                }
+                                specInfoMap.goodsSpecValue1List = goodsSpecValue1List;
+
+                                JSONArray goodsSpecValue2ListJson = specInfoMapJson.getJSONArray("goodsSpecValue2List");
+                                ArrayList<String> goodsSpecValue2List = new ArrayList<>();
+                                for (int i=0; i<goodsSpecValue2ListJson.length(); i++) {
+                                    String goodsSpecValue2 = goodsSpecValue2ListJson.getString(i);
+                                    goodsSpecValue2List.add(goodsSpecValue2);
+                                }
+                                specInfoMap.goodsSpecValue2List = goodsSpecValue2List;
+
+                                JSONObject goodsSpecMapJson = specInfoMapJson.getJSONObject("goodsSpecMap");
+                                ArrayList<GoodsSpecMap> goodsSpecMapList = new ArrayList<>();
+                                Iterator<String> mapKeys = goodsSpecMapJson.keys();
+                                while (mapKeys.hasNext()) {
+                                    String key = mapKeys.next();
+                                    GoodsSpecMap goodsSpecMap = new GoodsSpecMap();
+                                    goodsSpecMap.key = key;
+
+                                    JSONObject goodsSpecJson = goodsSpecMapJson.optJSONObject(key);
                                     GoodsSpec goodsSpec = new GoodsSpec();
                                     goodsSpec.bizClientId = goodsSpecJson.optString("bizClientId", "");
                                     goodsSpec.gmtCreate = goodsSpecJson.optString("gmtCreate", "");
@@ -176,11 +228,14 @@ public class ProductDetailModel extends ViewModel {
                                     goodsSpec.specValue2 = goodsSpecJson.optString("specValue2", "");
                                     goodsSpec.stock = goodsSpecJson.optInt("stock", 1);
 
-                                    goodsSpecList.add(goodsSpec);
+                                    goodsSpecMap.value = goodsSpec;
+                                    goodsSpecMapList.add(goodsSpecMap);
                                 }
-                                goods.price = goodsSpecList.get(0).price;
-                                goods.goodsSpecList = goodsSpecList;
-                                mGoods.postValue(goods);
+                                specInfoMap.goodsSpecMap = goodsSpecMapList;
+                                goodInfo.specInfoMap = specInfoMap;
+                                goodInfo.bizUserId = obj.optString("bizUserId", "");
+
+                                mGoods.postValue(goodInfo);
 
                             } else {
                                 Log.d("Home request", response.toString());
