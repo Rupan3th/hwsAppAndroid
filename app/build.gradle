@@ -47,7 +47,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation files('libs/android-async-http-1.4.9.jar')
     implementation files('libs/httpclient-4.4.1.1.jar')
-    implementation files('libs/wechat-sdk-android-with-mta.jar')
+//    implementation files('libs/wechat-sdk-android-with-mta.jar')
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0@aar'
 //    implementation files('libs/alipaySdk-20170725.jar')
 
     api 'com.alipay.sdk:alipaysdk-android:+@aar'
