@@ -71,7 +71,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
     public GoodsDetailImagesAdapter mAdapter;
     private GoodsParamListAdapter mGPAdapter;
 
-    public boolean buy_now_sate = false, favorite = false, view_all = false, addedCart = false, select_one = false, select_two = false;
+    public boolean buy_now_sate = false, favorite = false, view_all = false, addedCart = false, select_one, select_two;
     public int amount = 1, product_stock;
     public String AuthToken, shopId = "", pkId="", favorite_pkId, selected_goodsSpec, selected_option1="", selected_option2="";
 
@@ -396,6 +396,8 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
     }
 
     private void showBottomSheetDialog() {
+        select_one = false;
+        select_two = false;
 
         final Dialog bottomSheetDialog = new Dialog(this);
         bottomSheetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -446,23 +448,71 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
             tvPrice_decimal_places.setText(mPrice.substring(idx+1));
             tvItemDetail.setText(goodInfo.goodsPrice.goods_spec);
 
-        }catch (Exception e){
+        }catch (Exception e){ }
 
+        String full_key = "";
+        String init_select_option1="";
+        String init_select_option2="";
+        for(int i=0; i<goodInfo.specInfoMap.goodsSpecMap.size(); i++){
+            if(goodInfo.specInfoMap.goodsSpecMap.get(i).value.goodsSpec.equals(goodInfo.goodsPrice.goods_spec)){
+                full_key = goodInfo.specInfoMap.goodsSpecMap.get(i).key;
+            }
         }
+        try{
+            if(goodInfo.specInfoMap.goodsSpecName2 == null || goodInfo.specInfoMap.goodsSpecName2.equals("")){
+                init_select_option1 = full_key.substring(1, full_key.length()-1);
+            }else{
+                init_select_option1 = full_key.substring(1, full_key.indexOf("]["));
+                init_select_option2 = full_key.substring(full_key.indexOf("][")+2, full_key.length()-1);
+            }
+        }catch (Exception e){}
 
+        initSetGoodSpec(init_select_option1,init_select_option2);
 
         FlowLayout layout1 = bottomSheetDialog.findViewById(R.id.select_product_option);
         ArrayList<TextView> selectOptionList = new ArrayList<TextView>();
         for (int i=0; i<goodsSpecValue1List.size(); i++) {
             TextView tv = new TextView(this);
             tv.setText(goodsSpecValue1List.get(i).toString());
-
-//                if(goodsSpecValue1List.get(i).stock < 1)  tv.setTextColor(Color.parseColor("#86909C"));
-//                else  tv.setTextColor(Color.parseColor("#555555"));
             tv.setBackgroundResource(R.drawable.round_gray_solid_4);
             tv.setTextSize(12);
+            tv.setTextColor(Color.parseColor("#555555"));
+            if(goodsSpecValue1List.get(i).toString().equals(init_select_option1)){
+                tv.setTextColor(Color.parseColor("#F53F3F"));
+                tv.setBackgroundResource(R.drawable.round_gray_red_border);
+            }
             tv.setIncludeFontPadding(false);
             tv.setPadding(50, 20, 50, 20);
+
+            String specKey = "";
+            String key1 = "[" + goodsSpecValue1List.get(i).toString() + "]";
+            String key2 = "";
+            int sub_stock = 0;
+            if(goodsSpecValue2List.size()>0){
+                for(int j=0; j<goodsSpecValue2List.size(); j++){
+                    key2 = "[" + goodsSpecValue2List.get(j).toString() + "]";
+                    specKey = key1 + key2;
+
+                    for(int pi=0; pi<goodInfo.specInfoMap.goodsSpecMap.size(); pi++){
+                        if(goodInfo.specInfoMap.goodsSpecMap.get(pi).key.equals(specKey)){
+                            selectSpecInf = goodInfo.specInfoMap.goodsSpecMap.get(pi).value;
+                            sub_stock = sub_stock + selectSpecInf.stock;
+                        }
+                    }
+                }
+                if(sub_stock == 0) tv.setTextColor(Color.parseColor("#86909C"));
+                else tv.setTextColor(Color.parseColor("#555555"));
+
+            }else {
+                specKey = key1;
+                for(int pi=0; pi<goodInfo.specInfoMap.goodsSpecMap.size(); pi++){
+                    if(goodInfo.specInfoMap.goodsSpecMap.get(pi).key.equals(specKey)){
+                        selectSpecInf = goodInfo.specInfoMap.goodsSpecMap.get(pi).value;
+                    }
+                }
+                if(selectSpecInf.stock == 0) tv.setTextColor(Color.parseColor("#86909C"));
+                else  tv.setTextColor(Color.parseColor("#555555"));
+            }
 
             FlowLayout.MarginLayoutParams margin_params = new FlowLayout.MarginLayoutParams(
                         FlowLayout.MarginLayoutParams.WRAP_CONTENT, FlowLayout.MarginLayoutParams.WRAP_CONTENT);
@@ -477,11 +527,13 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
         for (int i=0; i<goodsSpecValue2List.size(); i++) {
             TextView tv = new TextView(this);
             tv.setText(goodsSpecValue2List.get(i).toString());
-
-//                if(goodsSpecValue1List.get(i).stock < 1)  tv.setTextColor(Color.parseColor("#86909C"));
-//                else  tv.setTextColor(Color.parseColor("#555555"));
             tv.setBackgroundResource(R.drawable.round_gray_solid_4);
+            tv.setTextColor(Color.parseColor("#555555"));
             tv.setTextSize(12);
+            if(goodsSpecValue2List.get(i).toString().equals(init_select_option2)){
+                tv.setTextColor(Color.parseColor("#F53F3F"));
+                tv.setBackgroundResource(R.drawable.round_gray_red_border);
+            }
             tv.setIncludeFontPadding(false);
             tv.setPadding(50, 20, 50, 20);
 
@@ -501,66 +553,37 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
                 @Override
                 public void onClick(View view) {
                     confirmBtn.setEnabled(false);
-                    for(int j=0; j<selectOptionList.size(); j++){
-                        TextView remindTv = selectOptionList.get(j);
-                        remindTv.setTextColor(Color.parseColor("#555555"));
-                        remindTv.setBackgroundResource(R.drawable.round_gray_solid_4);
+                    if(itemTv.getCurrentTextColor() == Color.parseColor("#555555")) {
+                        for (int j = 0; j < selectOptionList.size(); j++) {
+                            TextView remindTv = selectOptionList.get(j);
+                            remindTv.setTextColor(Color.parseColor("#555555"));
+                            remindTv.setBackgroundResource(R.drawable.round_gray_solid_4);
+                        }
+                        selected_option1 = goodsSpecValue1List.get(position).toString();
+                        itemTv.setTextColor(Color.parseColor("#F53F3F"));
+                        itemTv.setBackgroundResource(R.drawable.round_gray_red_border);
+
+                        for (int sj=0; sj<selectSizeList.size(); sj++){
+                            String option2 = goodsSpecValue2List.get(sj).toString();
+                            String selKey = "[" + selected_option1 + "][" + option2 + "]";
+                            for(int pi=0; pi<goodInfo.specInfoMap.goodsSpecMap.size(); pi++){
+                                if(goodInfo.specInfoMap.goodsSpecMap.get(pi).key.equals(selKey)){
+                                    selectSpecInf = goodInfo.specInfoMap.goodsSpecMap.get(pi).value;
+                                }
+                            }
+                            if(selectSpecInf.stock == 0)  selectSizeList.get(sj).setTextColor(Color.parseColor("#86909C"));
+                            else  selectSizeList.get(sj).setTextColor(Color.parseColor("#555555"));
+                        }
+
+                        select_one = true;
+                        if (goodInfo.specInfoMap.goodsSpecName2 == null || goodInfo.specInfoMap.goodsSpecName2.equals(""))
+                            select_two = true;
+
+                        if (select_one && select_two) {
+                            setGoodsSpec();
+                        }
                     }
-                    selected_option1 = goodsSpecValue1List.get(position).toString();
-                    itemTv.setTextColor(Color.parseColor("#F53F3F"));
-                    itemTv.setBackgroundResource(R.drawable.round_gray_red_border);
-                    select_one = true;
-                    if(goodInfo.specInfoMap.goodsSpecName2 == null || goodInfo.specInfoMap.goodsSpecName2.equals(""))
-                        select_two = true;
 
-                    if(select_one && select_two){
-                        setGoodsSpec();
-                    }
-
-//                    product_stock = goodsSpecValue1List.get(position).stock;
-//                    Item_inventory.setText(String.valueOf(goodsSpecValue1List.get(position).stock));
-//                    tvItemDetail.setText(goodsSpecValue1List.get(position).goodsSpec);
-
-//                    if(product_stock>0){
-//                        for(int j=0; j<selectOptionList.size(); j++)
-//                        {
-//                            TextView remindTv = selectOptionList.get(j);
-//                            if(goodsSpecValue1List.get(j).stock < 1)  remindTv.setTextColor(Color.parseColor("#86909C"));
-//                            else remindTv.setTextColor(Color.parseColor("#555555"));
-//                            remindTv.setBackgroundResource(R.drawable.round_gray_solid_4);
-//                        }
-//
-//                        selected_goodsSpec = goodsSpecValue1List.get(position).goodsSpec;
-//
-//                        itemTv.setTextColor(Color.parseColor("#F53F3F"));
-//                        itemTv.setBackgroundResource(R.drawable.round_gray_red_border);
-//
-//                        if(!goodsSpecValue1List.get(position).goodsSpecImg.equals(""))
-//                            Picasso.get()
-//                                    .load(goodsSpecValue1List.get(position).goodsSpecImg).resize(500,500).into(imgItem);
-//
-//                        if(!goodsSpecList.get(position).price.equals("")){
-//                            String mPrice = goodsSpecList.get(position).price;
-//                            int idx = mPrice.indexOf(".");
-//                            tvItemPrice.setText(mPrice.substring(0, idx)+".");
-//                            price_decimal_places.setText(mPrice.substring(idx+1));
-//                        }
-//
-//                        amount = 1;
-//                        tvItemAmount.setText(String.valueOf(amount));
-//                        if(product_stock <= 1){
-//                            plusBtn.setEnabled(false);
-//                            plusBtn.setImageResource(R.drawable.btn_plus_disable);
-//                        }else {
-//                            plusBtn.setEnabled(true);
-//                            plusBtn.setImageResource(R.drawable.btn_plus);
-//                        }
-//                        minusBtn.setEnabled(false);
-//                        minusBtn.setImageResource(R.drawable.btn_minus_disable);
-//
-//                        userCart.goodsSpecId = goodsSpecList.get(position).pkId;
-//                        confirmBtn.setEnabled(true);
-//                    }
                 }
             });
         }
@@ -573,20 +596,22 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
                 @Override
                 public void onClick(View view) {
                     confirmBtn.setEnabled(false);
-                    for(int j=0; j<selectSizeList.size(); j++){
-                        TextView remindTv = selectSizeList.get(j);
-                        remindTv.setTextColor(Color.parseColor("#555555"));
-                        remindTv.setBackgroundResource(R.drawable.round_gray_solid_4);
-                    }
-                    selected_option2 = goodsSpecValue2List.get(position).toString();
-                    itemTv.setTextColor(Color.parseColor("#F53F3F"));
-                    itemTv.setBackgroundResource(R.drawable.round_gray_red_border);
-                    select_two = true;
-                    if(goodInfo.specInfoMap.goodsSpecName1 == null || goodInfo.specInfoMap.goodsSpecName1.equals(""))
-                        select_one = true;
+                    if(itemTv.getCurrentTextColor() == Color.parseColor("#555555")) {
+                        for (int j = 0; j < selectSizeList.size(); j++) {
+                            TextView remindTv = selectSizeList.get(j);
+                            remindTv.setTextColor(Color.parseColor("#555555"));
+                            remindTv.setBackgroundResource(R.drawable.round_gray_solid_4);
+                        }
+                        selected_option2 = goodsSpecValue2List.get(position).toString();
+                        itemTv.setTextColor(Color.parseColor("#F53F3F"));
+                        itemTv.setBackgroundResource(R.drawable.round_gray_red_border);
+                        select_two = true;
+                        if (goodInfo.specInfoMap.goodsSpecName1 == null || goodInfo.specInfoMap.goodsSpecName1.equals(""))
+                            select_one = true;
 
-                    if(select_one && select_two){
-                        setGoodsSpec();
+                        if (select_one && select_two) {
+                            setGoodsSpec();
+                        }
                     }
                 }
             });
@@ -728,6 +753,34 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
 
     }
 
+    public void initSetGoodSpec(String option1, String option2){
+        String key = "[" + option1 + "][" + option2 + "]";
+        if(option2.equals("")) key = "[" + option1 + "]";
+        if(option1.equals("")) key = "[" + option2 + "]";
+        for(int pi=0; pi<goodInfo.specInfoMap.goodsSpecMap.size(); pi++){
+            if(goodInfo.specInfoMap.goodsSpecMap.get(pi).key.equals(key)){
+                selectSpecInf = goodInfo.specInfoMap.goodsSpecMap.get(pi).value;
+            }
+        }
+
+        product_stock = selectSpecInf.stock;
+        amount = 1;
+        Item_inventory.setText("(" + getResources().getString(R.string.up_to_max)
+                + product_stock
+                + getResources().getString(R.string.piece) + ")");
+        userCart.goodsSpecId = selectSpecInf.pkId;
+        confirmBtn.setEnabled(true);
+
+        if(product_stock > 0) {
+            select_one = true;
+            select_two = true;
+        }
+        if(amount == product_stock){
+            plusBtn.setEnabled(false);
+            plusBtn.setImageResource(R.drawable.btn_plus_disable);
+        }
+    }
+
     public void setGoodsSpec(){
         String key = "[" + selected_option1 + "][" + selected_option2 + "]";
         if(selected_option2.equals("")) key = "[" + selected_option1 + "]";
@@ -752,14 +805,22 @@ public class ProductDetailActivity extends AppCompatActivity implements ItemClic
             if(product_stock > 0){
                 amount = 1;
                 tvItemAmount.setText("" + amount);
-            }
-            Item_inventory.setText("(" + getResources().getString(R.string.up_to_max)
-                    + product_stock
-                    + getResources().getString(R.string.piece) + ")");
 
-            userCart.goodsSpecId = selectSpecInf.pkId;
-            confirmBtn.setEnabled(true);
+                Item_inventory.setText("(" + getResources().getString(R.string.up_to_max)
+                        + product_stock
+                        + getResources().getString(R.string.piece) + ")");
+
+                userCart.goodsSpecId = selectSpecInf.pkId;
+                confirmBtn.setEnabled(true);
+            }
+            else Item_inventory.setText("");
+
         }catch (Exception e){}
+
+        if(amount == product_stock){
+            plusBtn.setEnabled(false);
+            plusBtn.setImageResource(R.drawable.btn_plus_disable);
+        }
     }
 
     public void showEditAmountDialog(){
