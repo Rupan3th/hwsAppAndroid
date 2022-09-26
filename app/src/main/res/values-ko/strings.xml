@@ -301,4 +301,9 @@
     <string name="goods_sn">"번호: "</string>
     <string name="up_to_max">최대구매가능</string>
     <string name="piece">개</string>
+    <string name="enter_correct_phone">정확한 전화번호를 입력해주세요</string>
+    <string name="enter_consignee_name">수취인 이름을 입력하세요</string>
+    <string name="enter_phone_number">전화번호를 입력해주세요</string>
+    <string name="enter_detailed_address">자세한 주소를 입력하세요</string>
+    <string name="select_a_city">도시를 선택하세요</string>
 </resources>

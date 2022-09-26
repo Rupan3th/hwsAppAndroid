@@ -75,37 +75,44 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintVertical_bias="0.0" />-->
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/mainScrollView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="90dp"
         android:layout_marginBottom="64dp"
-        android:layout_marginStart="116dp"
-        android:background="@color/white"
-        android:contentDescription='"Classification Content"'>
+        android:layout_marginStart="116dp">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:contentDescription='"Classification Content"'>
 
-            <ImageView
-                android:id="@+id/category_banner"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:src="@drawable/bg_emoji_type"
-                android:visibility="gone" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/category_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:src="@drawable/bg_emoji_type"
+                    android:visibility="gone" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/sectioned_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sectioned_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ImageView
         android:id="@+id/no_internet"

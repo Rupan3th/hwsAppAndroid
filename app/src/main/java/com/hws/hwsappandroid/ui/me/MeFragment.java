@@ -72,6 +72,7 @@ import com.hws.hwsappandroid.databinding.FragmentMeBinding;
 import com.hws.hwsappandroid.util.CommonUtils;
 import com.hws.hwsappandroid.util.ItemClickListener;
 import com.hws.hwsappandroid.util.JWebSocketClient;
+import com.hws.hwsappandroid.util.MyGlobals;
 import com.hws.hwsappandroid.util.RecyclerViewAdapter;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -127,7 +128,7 @@ public class MeFragment extends Fragment implements ItemClickListener, JWebSocke
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        MyGlobals.getInstance().setSelect_CategoryName("");
         super.onCreateView(inflater, container, savedInstanceState);
 
         View decorView = requireActivity().getWindow().getDecorView();
@@ -770,6 +771,9 @@ public class MeFragment extends Fragment implements ItemClickListener, JWebSocke
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("avatar_img", avatar_img);
                         editor.commit();
+
+                        Intent i = new Intent(getContext(), PersonalInfoActivity.class);
+                        startActivityForResult(i, 5);
 
                     } else {
                         Log.d("Home request", response.toString());

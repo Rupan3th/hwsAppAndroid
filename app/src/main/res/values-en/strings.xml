@@ -301,4 +301,9 @@
     <string name="goods_sn">"No: "</string>
     <string name="up_to_max">Up to purchase</string>
     <string name="piece">piece</string>
+    <string name="enter_correct_phone">Please enter the correct phone number</string>
+    <string name="enter_consignee_name">Please enter consignee name</string>
+    <string name="enter_phone_number">Please enter the phone number</string>
+    <string name="enter_detailed_address">Please enter detailed address</string>
+    <string name="select_a_city">Please select a city</string>
 </resources>

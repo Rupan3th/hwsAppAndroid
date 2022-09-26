@@ -77,7 +77,7 @@ public class ShoppingCartFragment extends Fragment implements ItemClickListener 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        MyGlobals.getInstance().setSelect_CategoryName("");
         super.onCreateView(inflater, container, savedInstanceState);
 
         View decorView = requireActivity().getWindow().getDecorView();

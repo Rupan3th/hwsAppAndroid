@@ -26,6 +26,7 @@ import com.hws.hwsappandroid.model.Good;
 import com.hws.hwsappandroid.ui.ImageDetailActivity;
 import com.hws.hwsappandroid.ui.ProductDetailActivity;
 import com.hws.hwsappandroid.util.ItemClickListener;
+import com.hws.hwsappandroid.util.MyGlobals;
 import com.hws.hwsappandroid.util.RecyclerViewAdapter;
 
 public class LookoutFragment extends Fragment implements ItemClickListener {
@@ -40,6 +41,7 @@ public class LookoutFragment extends Fragment implements ItemClickListener {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        MyGlobals.getInstance().setSelect_CategoryName("");
         super.onCreateView(inflater, container, savedInstanceState);
 
         View decorView = requireActivity().getWindow().getDecorView();

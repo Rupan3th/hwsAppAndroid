@@ -56,23 +56,26 @@ import java.util.ArrayList;
 public class ClassificationFragment extends Fragment implements DialogInterface.OnCancelListener{
 
     private FragmentClassificationBinding binding;
-    TabsAdapter tabAdapter;
+    public TabsAdapter tabAdapter;
     public SectionRecyclerViewAdapter adapter;
     ViewPagerAdapter pagerAdapter;
+
     LinearLayout search_bar;
     TextView search_bar_txt;
     RecyclerView recyclerView, sectionRecycler;
     NestedScrollView mainScrollView;
+
     private RecyclerViewType recyclerViewType = RecyclerViewType.GRID;
     ClassificationViewModel Model;
-    String listString = "";
-    SharedPreferences pref;
 
     ArrayList<Category> mCategory = new ArrayList<>();
-
     ArrayList<Category_level_1> Category_level1 = new ArrayList<>();
     ArrayList<Category_level_2> Category_level2 = new ArrayList<>();
     ArrayList<Category_level_3> Category_level3 = new ArrayList<>();
+
+    String listString = "";
+    int tab_position;
+    SharedPreferences pref;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class ClassificationFragment extends Fragment implements DialogInterface.
         binding = FragmentClassificationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        MyGlobals.getInstance().setSelect_CategoryIdx(0);
         Model = new ViewModelProvider(this).get(ClassificationViewModel.class);
         if(NetworkCheck())  Model.loadData();
 
@@ -101,6 +105,7 @@ public class ClassificationFragment extends Fragment implements DialogInterface.
         if (getArguments() != null)
         {
             category_name = getArguments().getString("categoryName");
+            MyGlobals.getInstance().setSelect_CategoryName(category_name);
         }
 
         mainScrollView = binding.mainScrollView;
@@ -135,6 +140,7 @@ public class ClassificationFragment extends Fragment implements DialogInterface.
         tabAdapter.onTabClick = new TabsAdapter.OnTabClick() {
             @Override
             public void onTabClick(int position) {
+                tab_position = position;
                 tabAdapter.setCurrentPage(position);
 
                 adapter.setData(mCategory.get(position).childrenList);
@@ -274,6 +280,25 @@ public class ClassificationFragment extends Fragment implements DialogInterface.
                 });
             }
         });
+
+        mainScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY >= (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight() - 10)) {
+                    //pull up to refresh
+//                    tabAdapter.setCurrentPage(tab_position+1);
+//
+//                    adapter.setData(mCategory.get(tab_position+1).childrenList);
+//                    MyGlobals.getInstance().setSelect_CategoryIdx(tab_position+1);
+//                    Model.loadCategoryBanner(mCategory.get(tab_position+1).pkId);
+//
+//                    sectionRecycler.post(() -> {
+//                        mainScrollView.scrollTo(0,0);
+//                    });
+                }
+            }
+        });
+
 
         return root;
     }

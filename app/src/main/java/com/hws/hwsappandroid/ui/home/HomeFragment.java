@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment implements ItemClickListener, HN_Item
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        MyGlobals.getInstance().setSelect_CategoryName("");
         View decorView = requireActivity().getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
