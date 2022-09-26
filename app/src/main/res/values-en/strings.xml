@@ -306,4 +306,5 @@
     <string name="enter_phone_number">Please enter the phone number</string>
     <string name="enter_detailed_address">Please enter detailed address</string>
     <string name="select_a_city">Please select a city</string>
+    <string name="login_success">login_success</string>
 </resources>

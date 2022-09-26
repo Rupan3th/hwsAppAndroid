@@ -356,7 +356,7 @@
     <string name="enter_phone_number">请输入手机号码</string>
     <string name="enter_detailed_address">请输入详细地址</string>
     <string name="select_a_city">请选择省市</string>
-    <!--<string name=""></string>-->
+    <string name="login_success">登录成功</string>
     <!--<string name=""></string>-->
     <!--<string name=""></string>-->
     <!--<string name=""></string>-->
