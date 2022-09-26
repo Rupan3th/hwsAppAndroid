@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_lookout"
         android:icon="@drawable/wangjie_selector"
-        android:title="@string/title_lookout"/>
+        android:title=""/>
 
     <item
         android:id="@+id/navigation_shopping_cart"

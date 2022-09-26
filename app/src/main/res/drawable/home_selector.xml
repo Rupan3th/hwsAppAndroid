@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/home_on" android:state_checked="true">
+    <item android:drawable="@drawable/home_on" android:state_checked="true">
         <shape android:shape="rectangle">
             <solid android:color="#fff53f3f" />
             <gradient android:type="linear" android:useLevel="true" android:startColor="#ffff3434" android:endColor="#ffffc371" android:angle="156" />
@@ -9,5 +9,5 @@
             <item android:name="android:shadowDy">-5</item>
         </shape>
     </item>
-    <item android:drawable="@mipmap/home" android:state_checked="false"></item>
+    <item android:drawable="@drawable/home" android:state_checked="false"></item>
 </selector>
