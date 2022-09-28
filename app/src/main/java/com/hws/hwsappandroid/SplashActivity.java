@@ -117,6 +117,7 @@ public class SplashActivity extends AppCompatActivity {
         Model = new ViewModelProvider(this).get(ClassificationViewModel.class);
         Model.loadData();
         Model.getCategoryTree().observe(this, categoryTree -> {
+            int size = categoryTree.size();
             Gson gson = new Gson();
             listString = gson.toJson(
                     categoryTree,
@@ -126,24 +127,31 @@ public class SplashActivity extends AppCompatActivity {
             editor.putString("categoryList", listString);
             editor.commit();
 
+            SharedPreferences pref = getSharedPreferences("user_info",MODE_PRIVATE);
+            String AuthToken = pref.getString("token", "");
+            if(AuthToken.equals("")) {
+                startActivity(new Intent(SplashActivity.this, SelectLangActivity.class));
+                SplashActivity.this.finish();
+            }else{
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                SplashActivity.this.finish();
+            }
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences pref = getSharedPreferences("user_info",MODE_PRIVATE);
-                String AuthToken = pref.getString("token", "");
-                if(AuthToken.equals("")) {
-                    startActivity(new Intent(SplashActivity.this, SelectLangActivity.class));
-                    SplashActivity.this.finish();
-                }else{
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    SplashActivity.this.finish();
-                }
-            }
-        }, 2000);
-
-
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                SharedPreferences pref = getSharedPreferences("user_info",MODE_PRIVATE);
+//                String AuthToken = pref.getString("token", "");
+//                if(AuthToken.equals("")) {
+//                    startActivity(new Intent(SplashActivity.this, SelectLangActivity.class));
+//                    SplashActivity.this.finish();
+//                }else{
+//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                    SplashActivity.this.finish();
+//                }
+//            }
+//        }, 2000);
 
     }
 

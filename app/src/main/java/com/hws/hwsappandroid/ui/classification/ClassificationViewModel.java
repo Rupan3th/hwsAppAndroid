@@ -65,8 +65,6 @@ public class ClassificationViewModel extends ViewModel {
                             if (response.getBoolean("status")) {
                                 JSONObject obj = response.getJSONObject("data");
                                 JSONArray list = obj.getJSONArray("list");
-                                obj = list.getJSONObject(0);
-
                                 ArrayList<Category> CategoryArr = new ArrayList<>();
                                 for (int i=0; i<list.length(); i++) {
                                     JSONObject CategoryJson = list.getJSONObject(i);
