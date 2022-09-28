@@ -345,7 +345,7 @@ public class VerifyPhoneActivity extends AppCompatActivity implements DialogInte
 //                progressDialog.dismiss();
                 try {
                     if (response.getBoolean("status")) {
-                        CustomToast("Login success", true);
+                        CustomToast(getResources().getString(R.string.login_success), true);
                         JSONObject obj = response.getJSONObject("data");
                         account = obj.getString("account");
 //                        avatarPic = obj.getString("avatarPic");
